@@ -1,0 +1,391 @@
+{
+  "scopeName": "source.afsim",
+  "name": "AFSIM",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#script-blocks" },
+    { "include": "#script-variables-block" },
+    { "include": "#aux-data-block" },
+    { "include": "#block-start-keywords" },
+    { "include": "#block-end-keywords" },
+    { "include": "#commands" },
+    { "include": "#config-keywords" },
+    { "include": "#operator-keywords" },
+    { "include": "#behavior-tree-keywords" },
+    { "include": "#numbers-with-units" },
+    { "include": "#numbers" },
+    { "include": "#strings" },
+    { "include": "#type-names" },
+    { "include": "#constants" }
+  ],
+  "repository": {
+    "comments": {
+      "match": "#.*$",
+      "name": "comment.line.number-sign.afsim"
+    },
+
+    "script-blocks": {
+      "patterns": [
+        {
+          "begin": "(?<=^|\\s)(script)\\b",
+          "end": "(?<=^|\\s)(end_script)\\b",
+          "beginCaptures": { "1": { "name": "keyword.control.script-start.afsim" } },
+          "endCaptures": { "1": { "name": "keyword.control.script-end.afsim" } },
+          "contentName": "meta.embedded.block.cpp",
+          "patterns": [
+            { "include": "#script-content" }
+          ]
+        },
+        {
+          "begin": "(?<=^|\\s)(on_initialize)\\b",
+          "end": "(?<=^|\\s)(end_on_initialize)\\b",
+          "beginCaptures": { "1": { "name": "keyword.control.script-start.afsim" } },
+          "endCaptures": { "1": { "name": "keyword.control.script-end.afsim" } },
+          "contentName": "meta.embedded.block.cpp",
+          "patterns": [
+            { "include": "#script-content" }
+          ]
+        },
+        {
+          "begin": "(?<=^|\\s)(on_update)\\b",
+          "end": "(?<=^|\\s)(end_on_update)\\b",
+          "beginCaptures": { "1": { "name": "keyword.control.script-start.afsim" } },
+          "endCaptures": { "1": { "name": "keyword.control.script-end.afsim" } },
+          "contentName": "meta.embedded.block.cpp",
+          "patterns": [
+            { "include": "#script-content" }
+          ]
+        },
+        {
+          "begin": "(?<=^|\\s)(on_message)\\b",
+          "end": "(?<=^|\\s)(end_on_message)\\b",
+          "beginCaptures": { "1": { "name": "keyword.control.script-start.afsim" } },
+          "endCaptures": { "1": { "name": "keyword.control.script-end.afsim" } },
+          "patterns": [
+            { "include": "#script-content" },
+            {
+              "begin": "(?<=^|\\s)(script)\\b",
+              "end": "(?<=^|\\s)(end_script)\\b",
+              "beginCaptures": { "1": { "name": "keyword.control.script-start.afsim" } },
+              "endCaptures": { "1": { "name": "keyword.control.script-end.afsim" } },
+              "contentName": "meta.embedded.block.cpp",
+              "patterns": [
+                { "include": "#script-content" }
+              ]
+            },
+            {
+              "match": "(?<=^|\\s)(type)\\b",
+              "captures": { "1": { "name": "keyword.other.afsim" } }
+            }
+          ]
+        },
+        {
+          "begin": "(?<=^|\\s)(execute)\\b",
+          "end": "(?<=^|\\s)(end_execute)\\b",
+          "beginCaptures": { "1": { "name": "keyword.control.script-start.afsim" } },
+          "endCaptures": { "1": { "name": "keyword.control.script-end.afsim" } },
+          "contentName": "meta.embedded.block.cpp",
+          "patterns": [
+            { "include": "#script-content" }
+          ]
+        },
+        {
+          "begin": "(?<=^|\\s)(precondition)\\b",
+          "end": "(?<=^|\\s)(end_precondition)\\b",
+          "beginCaptures": { "1": { "name": "keyword.control.script-start.afsim" } },
+          "endCaptures": { "1": { "name": "keyword.control.script-end.afsim" } },
+          "contentName": "meta.embedded.block.cpp",
+          "patterns": [
+            { "include": "#script-content" }
+          ]
+        }
+      ]
+    },
+
+    "script-variables-block": {
+      "begin": "(?<=^|\\s)(script_variables)\\b",
+      "end": "(?<=^|\\s)(end_script_variables)\\b",
+      "beginCaptures": { "1": { "name": "keyword.control.script-start.afsim" } },
+      "endCaptures": { "1": { "name": "keyword.control.script-end.afsim" } },
+      "patterns": [
+        { "include": "#comments" },
+        {
+          "match": "\\b(extern)\\b",
+          "name": "storage.modifier.afsim"
+        },
+        {
+          "match": "\\b(int|double|float|bool|string|void|struct|Array)\\b",
+          "name": "storage.type.afsim"
+        },
+        {
+          "match": "\\b([A-Z][A-Za-z0-9_]*)\\b",
+          "name": "support.class.afsim"
+        },
+        { "include": "#numbers" },
+        { "include": "#strings" }
+      ]
+    },
+
+    "aux-data-block": {
+      "begin": "(?<=^|\\s)(aux_data)\\b",
+      "end": "(?<=^|\\s)(end_aux_data)\\b",
+      "beginCaptures": { "1": { "name": "keyword.control.block-start.afsim" } },
+      "endCaptures": { "1": { "name": "keyword.control.block-end.afsim" } },
+      "patterns": [
+        { "include": "#comments" },
+        {
+          "match": "\\b(int|double|string|bool)\\b",
+          "name": "storage.type.auxdata.afsim"
+        },
+        {
+          "match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\s*(==)",
+          "captures": {
+            "1": { "name": "variable.other.afsim" },
+            "2": { "name": "keyword.operator.assignment.afsim" }
+          }
+        },
+        {
+          "match": "=",
+          "name": "keyword.operator.assignment.afsim"
+        },
+        { "include": "#numbers" },
+        { "include": "#strings" }
+      ]
+    },
+
+    "script-content": {
+      "patterns": [
+        { "include": "#script-comments" },
+        { "include": "#script-strings" },
+        { "include": "#script-types" },
+        { "include": "#script-control-keywords" },
+        { "include": "#script-constants" },
+        { "include": "#script-numbers" },
+        { "include": "#script-functions" },
+        { "include": "#script-operators" }
+      ]
+    },
+
+    "script-comments": {
+      "patterns": [
+        {
+          "match": "//.*$",
+          "name": "comment.line.double-slash.cpp.afsim"
+        },
+        {
+          "begin": "/\\*",
+          "end": "\\*/",
+          "name": "comment.block.cpp.afsim"
+        }
+      ]
+    },
+
+    "script-strings": {
+      "patterns": [
+        {
+          "begin": "\"",
+          "end": "\"",
+          "name": "string.quoted.double.cpp.afsim",
+          "patterns": [
+            {
+              "match": "\\\\.",
+              "name": "constant.character.escape.afsim"
+            }
+          ]
+        }
+      ]
+    },
+
+    "script-types": {
+      "patterns": [
+        {
+          "match": "\\b(int|double|float|bool|string|void|struct|auto|const|static)\\b",
+          "name": "storage.type.cpp.afsim"
+        },
+        {
+          "match": "\\b(Array)(<)",
+          "captures": {
+            "1": { "name": "support.class.template.afsim" },
+            "2": { "name": "punctuation.definition.generic.afsim" }
+          }
+        },
+        {
+          "match": "\\b(WsfPlatform|WsfWeapon|WsfTrack|WsfGeoPoint|WsfSimulation|WsfThreatProcessor|WsfTaskAssignMessage|WsfLocalTrack|WsfTrackId|WsfLocalTrackList|WsfQuantumTask|WsfAssetPerception|WsfTask|WsfMessage|WsfSensor|WsfComm|WsfProcessor|WsfPlatformPart|WsfTrackProcessor|WsfPerceptionProcessor|WsfThreatProcessor|WsfTaskProcessor|WsfScriptProcessor|WsfPerfectTracker|WsfAirTargetFuse|WsfGroundTargetFuse|WsfStraightLineMover|WsfAirMover|WsfSurfaceMover|WsfFormationFlyer|WsfKalmanFilter|WsfRadarSensor|WsfCommTransceiver|WsfExplicitWeapon|WsfGraduatedLethality|WsfQuantumTaskerProcessor|WsfScriptProcessor|WsfString)\\b",
+          "name": "support.class.wsf.afsim"
+        },
+        {
+          "match": "\\b([A-Z][a-zA-Z0-9_]*)\\b",
+          "name": "support.class.afsim"
+        }
+      ]
+    },
+
+    "script-control-keywords": {
+      "match": "\\b(if|else|for|while|do|foreach|in|return|break|continue|switch|case|default|true|false|null)\\b",
+      "name": "keyword.control.cpp.afsim"
+    },
+
+    "script-constants": {
+      "patterns": [
+        {
+          "match": "\\b(PLATFORM|TRACK|MESSAGE|TIME_NOW|RANDOM|MATH|SELF)\\b",
+          "name": "constant.language.wsf.afsim"
+        },
+        {
+          "match": "\\b([A-Z][A-Z0-9_]{2,})\\b",
+          "name": "constant.other.afsim"
+        }
+      ]
+    },
+
+    "script-numbers": {
+      "match": "\\b\\d+\\.?\\d*([eE][+-]?\\d+)?\\b",
+      "name": "constant.numeric.cpp.afsim"
+    },
+
+    "script-functions": {
+      "patterns": [
+        {
+          "match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\s*(?=\\()",
+          "captures": {
+            "1": { "name": "entity.name.function.cpp.afsim" }
+          }
+        },
+        {
+          "match": "(->)|(\\.)",
+          "name": "punctuation.accessor.afsim"
+        }
+      ]
+    },
+
+    "script-operators": {
+      "match": "(==|!=|<=|>=|&&|\\|\\||\\+\\+|--|<<|>>|[+\\-*/<>=!&|^~%])",
+      "name": "keyword.operator.cpp.afsim"
+    },
+
+    "block-start-keywords": {
+      "match": "(?<=^|\\s)(platform_type|platform|weapon|weapon_effects|sensor|processor|comm|mover|radar_signature|infrared_signature|optical_signature|route|track_manager|filter|transmitter|receiver|visual_elements|event_output|event_pipe|behavior_tree|behavior|selector|parallel|antenna_pattern|rectangular_pattern|inline_table|poi|range_ring|state|next_state|band|tof_and_speed)\\b",
+      "captures": {
+        "1": { "name": "keyword.control.block-start.afsim" }
+      }
+    },
+
+    "block-end-keywords": {
+      "match": "(?<=^|\\s)(end_\\w+)\\b",
+      "captures": {
+        "1": { "name": "keyword.control.block-end.afsim" }
+      }
+    },
+
+    "commands": {
+      "patterns": [
+        {
+          "match": "(?<=^|\\s)(include_once)\\b\\s+(\\S+)",
+          "captures": {
+            "1": { "name": "keyword.control.import.afsim" },
+            "2": { "name": "string.unquoted.path.afsim" }
+          }
+        },
+        {
+          "match": "(?<=^|\\s)(define_path_variable)\\b\\s+(\\w+)",
+          "captures": {
+            "1": { "name": "keyword.other.command.afsim" },
+            "2": { "name": "variable.other.afsim" }
+          }
+        },
+        {
+          "match": "(?<=^|\\s)(end_time|log_file|script_debug_writes|icon|category|side|heading|altitude|position|speed|delete|goto|label)\\b",
+          "captures": {
+            "1": { "name": "keyword.other.command.afsim" }
+          }
+        }
+      ]
+    },
+
+    "config-keywords": {
+      "match": "(?<=^|\\s)(update_interval|transfer_rate|internal_link|on|off|quantity|launched_platform_type|scan_mode|azimuth_scan_limits|elevation_scan_limits|frame_time|one_m2_detect_range|maximum_range|power|frequency|bandwidth|noise_power|internal_loss|peak_gain|minimum_gain|azimuth_beamwidth|elevation_beamwidth|probability_of_false_alarm|required_pd|swerling_case|hits_to_establish_track|hits_to_maintain_track|track_quality|reports_location|reports_velocity|reports_bearing|reports_side|reports_type|ignore_same_side|evaluation_interval|command_chain|report_to|asset_perception|generator|evaluator|allocator|reallocation_strategy|asset_representation|maximum_lateral_acceleration|guidance_mode|max_time_of_flight_to_detonate|time_of_flight_to_arm|radius_and_pk|constant|minimum_altitude|initialize_at_offset|maximum_speed|minimum_speed|lead_aircraft|offset_forward_from_lead|offset_right_from_lead|offset_down_from_lead|reporting_self|reporting_others|report_interval|purge_interval|file|enable|disable|use_preset|process_noise_sigmas_XYZ|range_measurement_sigma|bearing_measurement_sigma|elevation_measurement_sigma|bullseye|entity|ring_color|center_radius|ring_width|report|type|via)\\b",
+      "captures": {
+        "1": { "name": "variable.parameter.config.afsim" }
+      }
+    },
+
+    "operator-keywords": {
+      "match": "(?<=^|\\s)(edit|add)\\b",
+      "captures": {
+        "1": { "name": "keyword.operator.modifier.afsim" }
+      }
+    },
+
+    "behavior-tree-keywords": {
+      "match": "(?<=^|\\s)(behavior_node)\\b",
+      "captures": {
+        "1": { "name": "keyword.other.behavior-node.afsim" }
+      }
+    },
+
+    "numbers-with-units": {
+      "patterns": [
+        {
+          "match": "(\\d+\\.?\\d*(?:[eE][+-]?\\d+)?)\\s+(mbits/s|km/h|m/s|w/sr)",
+          "captures": {
+            "1": { "name": "constant.numeric.afsim" },
+            "2": { "name": "keyword.other.unit.afsim" }
+          }
+        },
+        {
+          "match": "(\\d+\\.?\\d*(?:[eE][+-]?\\d+)?)\\s+(meters|degrees|m\\^2)",
+          "captures": {
+            "1": { "name": "constant.numeric.afsim" },
+            "2": { "name": "keyword.other.unit.afsim" }
+          }
+        },
+        {
+          "match": "(\\d+\\.?\\d*(?:[eE][+-]?\\d+)?)\\s+(km|deg|kt|db|kw|ft|mhz|dbw|min|agl|m2|s\\b|m\\b|h\\b|g\\b)",
+          "captures": {
+            "1": { "name": "constant.numeric.afsim" },
+            "2": { "name": "keyword.other.unit.afsim" }
+          }
+        }
+      ]
+    },
+
+    "numbers": {
+      "match": "\\b\\d+\\.?\\d*(?:[eE][+-]?\\d+)?\\b",
+      "name": "constant.numeric.afsim"
+    },
+
+    "strings": {
+      "patterns": [
+        {
+          "begin": "\"",
+          "end": "\"",
+          "name": "string.quoted.double.afsim",
+          "patterns": [
+            {
+              "match": "\\\\.",
+              "name": "constant.character.escape.afsim"
+            }
+          ]
+        }
+      ]
+    },
+
+    "type-names": {
+      "match": "\\b([A-Z][A-Z0-9_]{2,})\\b",
+      "name": "entity.name.type.afsim"
+    },
+
+    "constants": {
+      "patterns": [
+        {
+          "match": "\\b(PLATFORM|TRACK|MESSAGE|TIME_NOW|RANDOM|MATH|SELF)\\b",
+          "name": "constant.language.wsf.afsim"
+        },
+        {
+          "match": "\\$(\\w+)\\$",
+          "name": "variable.other.path.afsim"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,78 @@
+# ============================================
+# 测试：edit 块结束标记、单行 comm、route、单位等
+# ============================================
+
+# 单行 comm 声明 (不应触发 end_comm 块)
+comm cmdr TEAM_DATALINK
+
+# 多行 comm 块
+comm t_comm WSF_COMM_TRANSCEIVER
+   transfer_rate 200 mbits/s
+   internal_link data_mgr
+end_comm
+
+platform_type TestPlane WSF_PLATFORM
+   edit comm t_comm
+      internal_link main_solver   # 此前 edit 结束标记错误，现应正确闭合
+   end_comm                      # 必须匹配 end_comm
+   mover WSF_AIR_MOVER
+      update_interval 1 s
+   end_mover
+   route
+      position 13:30:00n 117:40:00e altitude 5000 m
+         speed 250 m/s           # 新单位 m/s 应高亮
+      label Waypoint-1
+         position 14:00:00n 118:00:00e altitude 5000 m
+         speed 250 km/h          # 新单位 km/h 应高亮
+   end_route
+end_platform_type
+
+weapon TestWeapon BASIC_EXPLICIT_WEAPON
+   aux_data
+      double range = 80000.0     # 单位 m 隐含
+      string t_category = "air"
+   end_aux_data
+   tof_and_speed
+      0.00 s 200 m/s
+      10.0 s 400 kt              # 新增 knots 单位
+   end_tof_and_speed
+   weapon_effects TEST_EFFECT WSF_GRADUATED_LETHALITY
+      radius_and_pk 50 m 1.0
+   end_weapon_effects
+end_weapon
+
+processor TestProc WSF_TASK_PROCESSOR
+   state WAITING
+      next_state ENGAGE          # next_state 应作为块起始关键字高亮
+         return true
+      end_next_state             # 新增 end_next_state 需处理
+   end_state
+   behavior_tree
+      selector
+         behavior_node retreat   # behavior_node 保留为语句关键字
+         parallel
+            behavior attack_target
+               # behavior 单独用于块定义，不应与 behavior_tree 混淆
+            end_behavior   # 此为自定义块？实际 AFSIM 中 behavior 定义块结束为 end_behavior
+         end_parallel
+      end_selector
+   end_behavior_tree
+end_processor
+# inline_table 测试
+radar_signature TEST_SIG
+   inline_table m2 7 5
+         -90    -30     0     30    90
+   -180  0.10   0.05   0.03   0.05   0.10
+   -120  0.08   0.02   0.01   0.02   0.08
+   end_inline_table
+end_radar_signature
+
+# 时间、数据率等单位
+end_time 0.5 h                    # h 应高亮
+log_file outputs/test.log
+
+visual_elements
+   poi point_of_interest
+      position 13:31:59n 117:44:45e
+   end_poi
+end_visual_elements
