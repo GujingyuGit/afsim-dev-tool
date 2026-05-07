@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AfsimDefinitionProvider = void 0;
-const afsimConfig_1 = require("./data/afsimConfig");
+const afsim_domain_1 = require("./data/afsim-domain");
 class AfsimDefinitionProvider {
     parser;
     constructor(parser) {
@@ -45,7 +45,7 @@ class AfsimDefinitionProvider {
     }
     findConfigDefinition(word, document, position) {
         // Don't try to find definitions for predefined types
-        if (afsimConfig_1.PREDEFINED_TYPES.includes(word))
+        if ((0, afsim_domain_1.getPredefinedTypes)().includes(word))
             return null;
         // Search for user-defined type definitions
         for (const doc of this.parser.getAllDocuments()) {

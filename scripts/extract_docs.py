@@ -46,12 +46,13 @@ def make_script_class(name: str, parent: str = "", methods: list = None) -> dict
 
 
 def make_command(name: str, syntax: str = "", description: str = "",
-                 sub_commands: list = None) -> dict:
+                 sub_commands: list = None, block_keyword: str = "") -> dict:
     return {
         "name": name,
         "syntax": syntax,
         "description": description,
-        "subCommands": sub_commands or []
+        "subCommands": sub_commands or [],
+        "blockKeyword": block_keyword
     }
 
 

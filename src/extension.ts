@@ -3,39 +3,51 @@ import { AfsimParser } from './afsimParser';
 import { AfsimCompletionProvider } from './completionProvider';
 import { AfsimDefinitionProvider } from './definitionProvider';
 import { AfsimHoverProvider } from './hoverProvider';
+import { AfsimReferenceProvider } from './referenceProvider';
+import { initRunCommand } from './runCommand';
 
 let parser: AfsimParser;
+
+const AFSIM_SELECTOR: vscode.DocumentSelector = { scheme: 'file', language: 'afsim' };
 
 export function activate(context: vscode.ExtensionContext) {
   parser = new AfsimParser();
 
-  // Register completion provider
-  const completionProvider = new AfsimCompletionProvider(parser);
+  // Completion provider
   context.subscriptions.push(
     vscode.languages.registerCompletionItemProvider(
-      { scheme: 'file', language: 'afsim' },
-      completionProvider,
+      AFSIM_SELECTOR,
+      new AfsimCompletionProvider(parser),
       '.', '>', ' ', '\t'
     )
   );
 
-  // Register definition provider
-  const definitionProvider = new AfsimDefinitionProvider(parser);
+  // Definition provider
   context.subscriptions.push(
     vscode.languages.registerDefinitionProvider(
-      { scheme: 'file', language: 'afsim' },
-      definitionProvider
+      AFSIM_SELECTOR,
+      new AfsimDefinitionProvider(parser)
     )
   );
 
-  // Register hover provider
-  const hoverProvider = new AfsimHoverProvider(parser);
+  // Hover provider
   context.subscriptions.push(
     vscode.languages.registerHoverProvider(
-      { scheme: 'file', language: 'afsim' },
-      hoverProvider
+      AFSIM_SELECTOR,
+      new AfsimHoverProvider(parser)
     )
   );
+
+  // Reference provider
+  context.subscriptions.push(
+    vscode.languages.registerReferenceProvider(
+      AFSIM_SELECTOR,
+      new AfsimReferenceProvider(parser)
+    )
+  );
+
+  // Run command
+  initRunCommand(context);
 
   // Parse documents when they open or change
   context.subscriptions.push(

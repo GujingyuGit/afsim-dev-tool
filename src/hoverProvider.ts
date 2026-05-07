@@ -1,6 +1,9 @@
 import * as vscode from 'vscode';
 import { AfsimParser } from './afsimParser';
-import { SCRIPT_TYPES, SCRIPT_GLOBAL_CONSTANTS, PREDEFINED_TYPES, BUILTIN_FUNCTIONS } from './data/afsimConfig';
+import { getScriptTypes, getBuiltinFunctions, getGlobalConstant,
+  getAllMethodsForClass, getMethodReturnType, getGlobalConstantType,
+  getPredefinedTypes } from './data/afsim-domain';
+import type { BuiltinFunction, ScriptMethod } from './data/afsim-domain';
 
 export class AfsimHoverProvider implements vscode.HoverProvider {
   private parser: AfsimParser;
@@ -25,35 +28,35 @@ export class AfsimHoverProvider implements vscode.HoverProvider {
     if (!word || word.length < 1) return null;
 
     // Hover for global constants
-    if (SCRIPT_GLOBAL_CONSTANTS.includes(word)) {
+    const gc = getGlobalConstant(word);
+    if (gc) {
       const md = new vscode.MarkdownString();
       md.appendCodeblock(word, 'afsim');
-      md.appendMarkdown(`\n\n**Global constant**`);
-      const descriptions: Record<string, string> = {
-        'PLATFORM': '`WsfPlatform` — Current platform',
-        'TRACK': '`WsfTrack` — Current track',
-        'MESSAGE': '`WsfMessage` — Current message',
-        'TIME_NOW': '`double` — Current simulation time in seconds',
-        'RANDOM': 'Random number generator',
-        'MATH': 'Math utilities',
-        'SELF': '`WsfPlatform` — Self-reference platform'
-      };
-      if (descriptions[word]) {
-        md.appendMarkdown(`\n\n${descriptions[word]}`);
+      md.appendMarkdown('\n\n**Global constant**');
+      if (gc.description) {
+        md.appendMarkdown(`\n\n${gc.description}`);
       }
       return new vscode.Hover(md, range);
     }
 
     // Hover for script types
-    if (SCRIPT_TYPES.includes(word)) {
+    if (getScriptTypes().includes(word)) {
       return new vscode.Hover(
         new vscode.MarkdownString(`\`\`\`afsim\n${word}\n\`\`\`\n\nScript type: \`${word}\``),
         range
       );
     }
 
+    // Hover for predefined types
+    if (getPredefinedTypes().includes(word)) {
+      return new vscode.Hover(
+        new vscode.MarkdownString(`\`\`\`afsim\n${word}\n\`\`\`\n\nPredefined WSF type`),
+        range
+      );
+    }
+
     // Hover for built-in functions (with overload support)
-    const builtin = BUILTIN_FUNCTIONS.find(f => f.name === word);
+    const builtin = getBuiltinFunctions().find((f: BuiltinFunction) => f.name === word);
     if (builtin) {
       const contents: vscode.MarkdownString[] = [];
       for (const sig of builtin.signatures) {
@@ -73,6 +76,10 @@ export class AfsimHoverProvider implements vscode.HoverProvider {
       }
       return new vscode.Hover(contents, range);
     }
+
+    // Hover for class methods — check if word is a method on a type we can resolve
+    const methodHover = this.tryMethodHover(document, position, word, range);
+    if (methodHover) return methodHover;
 
     // Hover for user-defined variables and functions
     const parsed = this.parser.getDocument(document.uri);
@@ -115,5 +122,64 @@ export class AfsimHoverProvider implements vscode.HoverProvider {
     }
 
     return null;
+  }
+
+  /**
+   * Try to show hover for a class method by looking at the expression before ".".
+   * e.g., for "pla.Weapon()", hovering over "Weapon" shows WsfWeapon method info.
+   */
+  private tryMethodHover(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    word: string,
+    wordRange: vscode.Range
+  ): vscode.Hover | null {
+    // Look at the line to find "xxx.word" pattern
+    const line = document.lineAt(position.line).text;
+    const linePrefix = line.substring(0, wordRange.start.character);
+
+    // Find the expression before "." or "->"
+    const dotMatch = linePrefix.match(/(\w+)\s*(?:\.|->)\s*$/);
+    if (!dotMatch) return null;
+
+    const objName = dotMatch[1];
+
+    // Resolve the type of the object
+    let objType: string | null = null;
+
+    // Check global constants
+    objType = getGlobalConstantType(objName);
+    if (!objType) {
+      // Check parsed variables
+      for (const doc of this.parser.getAllDocuments()) {
+        for (const v of doc.variables) {
+          if (v.name === objName) {
+            objType = v.type;
+            break;
+          }
+        }
+        if (objType) break;
+      }
+    }
+
+    if (!objType) return null;
+
+    // Find the method on this type
+    const methods = getAllMethodsForClass(objType);
+    const method = methods.find((m: ScriptMethod) => m.name === word);
+    if (!method || method.signatures.length === 0) return null;
+
+    const contents: vscode.MarkdownString[] = [];
+    for (const sig of method.signatures) {
+      const md = new vscode.MarkdownString();
+      const paramStr = sig.params.map(p => `${p.type} ${p.name}`).join(', ');
+      md.appendCodeblock(`${sig.returnType} ${method.name}(${paramStr})`, 'cpp');
+      if (sig.description) {
+        md.appendMarkdown(`\n\n${sig.description}`);
+      }
+      contents.push(md);
+    }
+
+    return new vscode.Hover(contents, wordRange);
   }
 }

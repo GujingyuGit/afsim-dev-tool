@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { AfsimParser } from './afsimParser';
-import { PREDEFINED_TYPES, SCRIPT_BLOCK_KEYWORDS } from './data/afsimConfig';
+import { getPredefinedTypes } from './data/afsim-domain';
 
 export class AfsimDefinitionProvider implements vscode.DefinitionProvider {
   private parser: AfsimParser;
@@ -63,7 +63,7 @@ export class AfsimDefinitionProvider implements vscode.DefinitionProvider {
     position: vscode.Position
   ): vscode.Definition | null {
     // Don't try to find definitions for predefined types
-    if (PREDEFINED_TYPES.includes(word)) return null;
+    if (getPredefinedTypes().includes(word)) return null;
 
     // Search for user-defined type definitions
     for (const doc of this.parser.getAllDocuments()) {

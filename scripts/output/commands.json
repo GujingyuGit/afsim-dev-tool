@@ -49,7 +49,8 @@
         "syntax": "report { <detector-platform> | all } to { <detectee-platform> | all } [ using { <sensor-name> | all } ]",
         "description": "Specify which access events are to be reported in the output file. Selections for each detector-detectee pair should be provided. optionally, a sensor name on the detector can also be specified, in which case access is only computed for that particular sensor. If no sensor is specified, all sensors on the detecting platform will be used to compute access separately. For each selection, the keyword all can be inserted, meaning that access will be computed for all detectors, detectees, and / or sensors."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "acoustic_signature",
@@ -101,7 +102,8 @@
         "syntax": "noise_pressure <noise-pressure-value>",
         "description": "Acoustic noise pressure (dB/20 uPa) at specified 1/3 octave center frequency."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "advanced_behavior",
@@ -153,7 +155,8 @@
         "syntax": "color <color-value>",
         "description": "Set the color to display as a platform trace line in Mystic to indicate when the behavior is running."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "advanced_behavior_tree",
@@ -335,7 +338,8 @@
         "syntax": "success_policy [threshold <int> | succeed_on_one | succeed_on_all ]",
         "description": "Sets the success_policy for a parallel node or an advanced_behavior_tree using root_node_type parallel. Three policies may be set for handling success on a parallel node: Threshold will take an integer amount of nodes that must succeed for the parallel node to succeed. Succeed_on_one will make the parallel node succeed if any child succeeds. Succeed_on_all will make the parallel node succeed only if all children succeed."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "aero",
@@ -412,7 +416,8 @@
         "syntax": "mach_max_supersonic <float-value>",
         "description": "Specify this value to arrest a continuous rise or decline in drag coefficient with increasing Mach number, in the region above the transonic drag rise. If the Mach number is higher than this specified value, the zero-lift drag coefficient will be held constant."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "AIR_TO_AIR_LAUNCH_COMPUTER_GENERATOR",
@@ -459,7 +464,8 @@
         "syntax": "maximum_iterations <positive-integer>",
         "description": "This is a terminate search constraint; if convergence is not attained within this many iterations per engagement, iteration is stopped for the engagement."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "air_traffic",
@@ -691,7 +697,8 @@
         "syntax": "remove_completed_flights",
         "description": "TBD"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "aircraft_signature_parameters",
@@ -853,7 +860,8 @@
         "syntax": "nose_signature_reduction_angle <angle-value>",
         "description": "The nose angle used to determine signature_reduction_factor_nose. If nose_signature_reduction_angle is more than the azimuth and more than the elevation, then the effective radar cross section will be multiplied by signature_reduction_factor_nose."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "ALARM Interface",
@@ -1250,7 +1258,8 @@
         "syntax": "water_type [ sea | lake ]",
         "description": "Default sea"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "alternate_locations",
@@ -1412,7 +1421,8 @@
         "syntax": "debug <boolean-value>",
         "description": "If set to ‘on’, enables debug output for this block. If set to ‘off’, disables debug output for this block. Takes precedence over the global debug flag."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "AMTI Component",
@@ -1469,7 +1479,8 @@
         "syntax": "capability_uuid <capability-name> <uuid-value>",
         "description": "Sets the capability UUID to the given value."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Antenna Commands",
@@ -1646,7 +1657,8 @@
         "syntax": "field_of_view … end_field_of_view",
         "description": "Specifies geometrical limits to determine if a subsystem can potentially interact with another object. Field of views are valid for anything that uses an electromagnetic antenna, including transmitter, receiver, and radar beams."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "antenna_pattern",
@@ -2378,7 +2390,8 @@
         "syntax": "element_locations … end_element_locations",
         "description": "A list/table of the element locations and associated weight of the element. Formatting is as follows:"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Articulated Part Commands",
@@ -2505,7 +2518,8 @@
         "syntax": "masking_pattern <masking-pattern-name>",
         "description": "Specify the name of a masking pattern defined with the global masking_pattern command. Masking patterns are a mechanism for modeling obscuration by structural elements on the platform."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "ATA_LAUNCH_COMPUTER_GENERATOR",
@@ -2537,7 +2551,8 @@
         "syntax": "speed <speed-value>",
         "description": "Provide the launch platform speed for the air-to-air missile firing. This setting will override any Mach value provided in altitude_and_mach."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "ATG_LAR_AND_LC_GENERATOR",
@@ -2614,13 +2629,15 @@
         "syntax": "switch_sides",
         "description": "The default output of the resultant replay file shows the output on the right side of the launching platform. This command switches the output to the left side."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "atmosphere",
     "syntax": "default_atmosphere_type [standard_day | hot_day | tropical_day | cold_day | polar_day | custom | simple_dt <temperature value>]",
     "description": "The “standard_day” atmosphere is supplied by default. This command is global in scope, and should be specified before any types are defined that use an atmosphere. Each instance of “simple_dt” type atmosphere must use the same (static) temperature deviation from “standard_day” atmosphere, and is supplied using the global syntax above for “simple_dt”. The default for this value is +10 deg K.",
-    "subCommands": []
+    "subCommands": [],
+    "blockKeyword": ""
   },
   {
     "name": "Atmosphere Model",
@@ -2632,7 +2649,8 @@
         "syntax": "atmosphere_model",
         "description": "Define a new atmosphere model with the specified <model-name> that is an instance of the specified <atmosphere-model-type>."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "atmospheric_coefficients",
@@ -2674,7 +2692,8 @@
         "syntax": "atmosphere_model <integer-value>",
         "description": "The atmosphere model used, corresponding with one of the values above (1-6). This should be the same value used as input to the ModTran run."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "attenuation_model",
@@ -2716,7 +2735,8 @@
         "syntax": "attenuation_factor <db-ratio-value>",
         "description": "Specifies a constant multiplier (gain factor) of the signal value. The factor must be in the range [ 0 .. 1 ] in absolute units (a dB value less than zero). This option would be applicable where the geometry is fixed (or nearly so), such as communications between two ground stations or between a ground station and a geosynchronous satellite."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Attitude Controller Models",
@@ -2793,7 +2813,8 @@
         "syntax": "swap_axes",
         "description": "Swap the pointing and constraint axes for the currently specified orientation."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "aux_data",
@@ -2805,7 +2826,8 @@
         "syntax": "aux_data … end_aux_data",
         "description": ""
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Azimuth-Elevation Table Definition",
@@ -2842,7 +2864,8 @@
         "syntax": "file <file-name> units <value-units>",
         "description": "Loads the file with <file-name> consistent with the expected format (SALRAM convention)."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "BALLISTIC_LAUNCH_COMPUTER_GENERATOR",
@@ -2879,7 +2902,8 @@
         "syntax": "target_altitudes <minimum-altitude> <delta-altitude> <number-of-altitudes>",
         "description": "Altitudes to place targets for prosecution. Altitudes are assumed to be the height of the target above an ellipsoidal earth."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "BALLISTIC_MISSILE_LAUNCH_COMPUTER_GENERATOR",
@@ -3076,7 +3100,8 @@
         "syntax": "depress_angle_range min_angle <angle-value> max_depress <angle-value> by <angle-value>",
         "description": "Used only for generating depressed trajectory profile launch tables. Parameters min_angle and max_depress are both independently able to terminate the iteration loop. The min_angle parameter is an absolute value of loft angle, while the max_loft parameter is relative to the pre-calculated optimal loft angle. Cannot be used with burn_times or loft_angle_range keyword."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "ballistic_types",
@@ -3128,7 +3153,8 @@
         "syntax": "mass <mass-value>",
         "description": "Provide a mass to be associated with the given type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "behavior",
@@ -3185,7 +3211,8 @@
         "syntax": "state <state-name>",
         "description": "Defines a state in a state machine with the name <state-name>. Notice that states can have their own behavior tree within them; it is updated when the state is evaluated."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "behavior_tree",
@@ -3277,7 +3304,8 @@
         "syntax": "make_selection [ continuous | count <int> ]",
         "description": "Specify how many selections will be made, rather than the default: continuous. This doesn’t affect or change whatever is defined by make_selection, but rather it could limit how many times a selector type node will perform."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "callback",
@@ -3289,7 +3317,8 @@
         "syntax": "execute <name> [in <processor-name>]",
         "description": "Specify the script that the callback should call when it is triggered. As an optional parameter you can specify a processor that the callback should execute in. To trigger more than one script when the callback occurs, simply include multiple execute statements. To add a callback to a waypoint, see the execute command of the route and the AddCallbackToWaypoint script method."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Change Attitude",
@@ -3306,7 +3335,8 @@
         "syntax": "swap_axes",
         "description": "Swap the pointing and constraint axes for the currently specified orientation."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Change Eccentricity",
@@ -3318,7 +3348,8 @@
         "syntax": "eccentricity <real-value>",
         "description": "The desired eccentricity of the final orbit."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Change Inclination",
@@ -3330,7 +3361,8 @@
         "syntax": "inclination <angle-value>",
         "description": "The final inclination of the satellite’s orbit."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Change Right Ascension of Ascending Node (RAAN)",
@@ -3342,7 +3374,8 @@
         "syntax": "raan <angle-value>",
         "description": "The right ascension of the ascending node (raan) of the final orbit."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Change Right Ascension of Ascending Node (RAAN) and Inclination",
@@ -3359,7 +3392,8 @@
         "syntax": "inclination <angle-value>",
         "description": "The inclination of the final orbit."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Change Semi-Major Axis",
@@ -3381,7 +3415,8 @@
         "syntax": "periapsis_altitude <length-value>",
         "description": "The desired altitude of the final orbit’s periapsis."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Classification Commands",
@@ -3458,7 +3493,8 @@
         "syntax": "trigraphs <trigraph-1> <trigraph-2> … <trigraph-n> end_trigraphs",
         "description": "Specifies the trigraphs associated with the classification. Each trigraph is a string literal specified by the user. The user can provide as many trigraphs as needed."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "clutter_model",
@@ -3485,7 +3521,8 @@
         "syntax": "use_legacy_data <boolean-value>",
         "description": "Specified whether to use an older set of tables of clutter strength."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "comm",
@@ -3617,7 +3654,8 @@
         "syntax": "coherent_jamming_perception_threshold <ratio>",
         "description": "Specifies the minimum threshold value that jamming will be perceived by the operator. Often used in conjunction with jamming_perception_timeout, JammingPerceived script method."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Common Script Interface",
@@ -3664,7 +3702,8 @@
         "syntax": "on_update …script_body… end_on_update",
         "description": "This command lets one define a script that is executed whenever the platform or processor is updated. When specified within the context of a processor, the “update_interval’ command defines the interval at which the simulation invokes the “Update’ method."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "conditional_section",
@@ -3731,7 +3770,8 @@
         "syntax": "type_not_present <type-name>",
         "description": "Determines if a ‘type’ is present. If any sensor, processor, comm, mover, fuel, filter, service or script type exists with the given name, the type is considered present. If the type is not present, the conditional section is ignored."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "console_output",
@@ -3853,7 +3893,8 @@
         "syntax": "force_flushing <boolean-value>",
         "description": "Enables or disables automatic flushing of output to the console after every log entry."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Correlation Methods",
@@ -3965,7 +4006,8 @@
         "syntax": "ignore_track_target <boolean-value>",
         "description": "Specify whether to ignore truth data associated with the track when making a correlation. If this value is set true, correlations is made identically with the perfect correlator when possible."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Measure of Effectiveness Grid Data Output",
@@ -4022,7 +4064,8 @@
         "syntax": "justify <justify-specifier>",
         "description": "Set the position in the width of the column where the output is generated. Allowed values are: left and right, which place the contents of a field on the left or right side (respectively) of the column."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Measure of Effectiveness Grid Stats Output",
@@ -4079,7 +4122,8 @@
         "syntax": "justify <justify-specifier>",
         "description": "Set the position in the width of the column where the output is generated. Allowed values are: left and right, which place the contents of a field on the left or right side (respectively) of the column."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Measure of Effectiveness Lat/Lon Stats Output",
@@ -4166,7 +4210,8 @@
         "syntax": "justify <justify-specifier>",
         "description": "Set the position in the width of the column where the output is generated. Allowed values are: left and right, which place the contents of a field on the left or right side (respectively) of the column."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "csv_event_output",
@@ -4228,7 +4273,8 @@
         "syntax": "insert_data_tags <boolean>",
         "description": "Specifies if the CSV header is written. This describes the format of each event in the log."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "cyber_attack",
@@ -4490,7 +4536,8 @@
         "syntax": "future_immunity_draw_frequency <draw_frequency_>",
         "description": "The frequency of random draws for determining if the victim will be immune to future attacks of the same type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "cyber_constraint",
@@ -4627,7 +4674,8 @@
         "syntax": "degrade_probability_of_future_immunity [ -1 .. 1 ]",
         "description": "The value that will be ADDED to the uniform probability draw that is compared against the accepted threshold value for future immunity. The attack is immune in the future if (uniform_draw + degrade < future_immunity_threshold)."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "cyber_effect",
@@ -4639,7 +4687,8 @@
         "syntax": "cyber_effect",
         "description": ""
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "cyber_protect",
@@ -4856,7 +4905,8 @@
         "syntax": "OnAttackRecovery (script)",
         "description": "Define an optional script that is invoked during an attack after the expiration of the attack_recovery_delay_time. This may be used to model such effects as notifying others that they are once again operational."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "cyber_trigger",
@@ -4918,7 +4968,8 @@
         "syntax": "OnExecute (script)",
         "description": "Defines the execution script for a trigger. Once a trigger has evaluated to true, this execution script will be called immediately."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "default fluence_model",
@@ -4960,7 +5011,8 @@
         "syntax": "haze_model <integer-value>",
         "description": "Specify the haze model to use. Valid values are 1-5 and correspond with the following:"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Delta_V",
@@ -4987,7 +5039,8 @@
         "syntax": "dv_z <speed-value>",
         "description": "The desired change in the ECI z component of the velocity."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "dis_interface",
@@ -5929,7 +5982,8 @@
         "syntax": "outgoing_weapon_transfer <weapon-system-type>",
         "description": "Specifies that weapons that are launched from the indicated weapon system are to be transferred to external control. Some external application is expected to respond to the Fire PDU and assume control of the launched weapon."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "draw",
@@ -5961,7 +6015,8 @@
         "syntax": "point_size <size_value>",
         "description": "Sets the size of the points used to draw the object."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "draw_file",
@@ -5973,7 +6028,8 @@
         "syntax": "draw_file <filename>",
         "description": "Specifies that items drawn with WsfDraw or draw are to be saved to a .draw file. WsfDraw output will still be provided over DIS or existing interfaces. This provides a way to record a .draw file that can be opened by the IDE."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Drift",
@@ -6020,7 +6076,8 @@
         "syntax": "tolerance <real-value>",
         "description": "Specify the solution search tolerance. The default tolerance is 1.0e-9."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Eclipse Report",
@@ -6062,7 +6119,8 @@
         "syntax": "report { <platform> | all }",
         "description": "Specify platform names for which eclipse events are to be reported in the output file. The keyword all can be inserted, meaning that eclipse data will be computed for all orbiting platforms."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "electronic_attack",
@@ -6074,7 +6132,8 @@
         "syntax": "electronic_attack",
         "description": ""
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "electronic_protect",
@@ -6086,7 +6145,8 @@
         "syntax": "electronic_protect",
         "description": ""
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "electronic_warfare",
@@ -6118,7 +6178,8 @@
         "syntax": "technique <technique-name> [<technique-type-name>] … end_technique",
         "description": ""
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "electronic_warfare_effect",
@@ -6170,7 +6231,8 @@
         "syntax": "rejected_target_set … end_allowed_target_set",
         "description": ""
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "electronic_warfare_technique",
@@ -6202,7 +6264,8 @@
         "syntax": "effect <effect-name> [<effect-type-name>]… end_effect",
         "description": "Defines the uniquely named effect for this technique and its derived type, if required."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "engage",
@@ -6659,7 +6722,8 @@
         "syntax": "enable_Pk_table_periodic_flush <boolean-value>",
         "description": "Instead of writing all Pk table data when generation is complete, data may be output when all data points associated with an target altitude has completed processing. This allows the possibility of retaining partial Pk data during very long generation routines in the case of an aborted or interrupted process. This will have no effect on the output process unless multiple altitude values are utilized."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "error_model",
@@ -6881,7 +6945,8 @@
         "syntax": "ground_target_altitude_error <length-value>",
         "description": "Defines the altitude error to use for the special case of 3 platforms detecting a “land” or “surface” target. The algorithm still requires a master node and at least 3 slave nodes detecting the target for all other types of targets (e.g., air, unknown) or if this value is not defined."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "ESM Component",
@@ -6938,7 +7003,8 @@
         "syntax": "capability_uuid <capability-name> <uuid-value>",
         "description": "Sets the capability UUID to the given value."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "event_output",
@@ -7080,7 +7146,8 @@
         "syntax": "print_track_residual_covariance <boolean>",
         "description": "If residual covariance data is contained in a track that is being logged, the contents of the track’s residual covariance matrix are also logged."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "event_pipe",
@@ -7192,13 +7259,15 @@
         "syntax": "visual_part_update_interval <time-value>",
         "description": "Specifies the update period at which visual part articulations will be published. Time values should be greater than zero. If unset, visual parts’ articulations will not be published."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "execute",
     "syntax": "execute … end_execute",
     "description": "",
-    "subCommands": []
+    "subCommands": [],
+    "blockKeyword": ""
   },
   {
     "name": "External Link Commands",
@@ -7315,7 +7384,8 @@
         "syntax": "debug_external_links",
         "description": "Enables various messages related to internal processing of external links. This command should precede any other external link commands to ensure all debug output is emitted for parsed input commands."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "false_target",
@@ -7577,7 +7647,8 @@
         "syntax": "speed <speed-value>",
         "description": "Specifies the speed at which the centroid will move."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "false_target_screener",
@@ -7729,7 +7800,8 @@
         "syntax": "j_to_s_delta_threshold <db-ratio-value>",
         "description": "Specifies the J/S delta in which the false targets will be counted within the defined sector, for use by the sector forcing commands input maximum false target counts. Any false target with a J/S within the delta threshold defined will count towards a competing false target within the sector of interest."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Field of View Commands",
@@ -7826,7 +7898,8 @@
         "syntax": "polar_field_of_view <angle-value> <angle-value>",
         "description": "Specifies the minimum and maximum angle about which the subsystem can see in the polar coordinate (polar angle of the equatorial celestial sphere). The limits are with respect to the current cue."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "File Commands",
@@ -7868,13 +7941,15 @@
         "syntax": "log <log-data>",
         "description": "Writes all of the remaining information on the current line to the current log file (see log_file). This can be used to write out information (such as a file version) that might be useful for ensuring the correct data is being brought into the simulation."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "filter",
     "syntax": "filter … end_filter",
     "description": "",
-    "subCommands": []
+    "subCommands": [],
+    "blockKeyword": ""
   },
   {
     "name": "Fluence_model",
@@ -7966,7 +8041,8 @@
         "syntax": "wavelength <length-value>",
         "description": "The wavelength at which the laser operates (e.g., 1.064 microns for a Nd-YAG laser). Current supported wavelengths (in nanometers) include"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Formations",
@@ -8048,7 +8124,8 @@
         "syntax": "lead",
         "description": "When prefixed before a sub-formation command, this indicates that the following formation defined is the lead sub-formation of the enclosing parent formation. Formation defined in input must have one (and only one) lead sub-formation defined."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "fuel",
@@ -8100,7 +8177,8 @@
         "syntax": "on_refuel … <script-definition> … end_on_refuel",
         "description": "Defines a script to be executed when a refueling operation has been completed."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Fusion Methods",
@@ -8212,7 +8290,8 @@
         "syntax": "debug_filter",
         "description": "Specifies saving of filtering history information (see filter debug)."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "global_environment",
@@ -8354,7 +8433,8 @@
         "syntax": "polar_offset_angles <angle-value> <angle-value>",
         "description": "Specify the central_body’s polar offset angles ( and , respectively) of the Celestial Intermediate Pole (CIP) with respect to the WCS (ITRS) coordinate system. Providing these values (of the order of tenths of arc-seconds) enables very highly accurate conversions between ECI and WCS coordinates."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "gravity_model",
@@ -8386,7 +8466,8 @@
         "syntax": "test_point <latitude-value> <longitude-value>",
         "description": "Specifies a test latitude-longitude pair to perform lookouts and print geoid height value from the database to standard output for debugging purposes. command may be repeated multiple times to test other latitude-longitude pairs as required."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "group",
@@ -8398,7 +8479,8 @@
         "syntax": "aux_data <aux-data> … end_aux_data",
         "description": "Defines auxiliary data for a platform. See aux_data."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Guidance Program Types",
@@ -8655,7 +8737,8 @@
         "syntax": "on_injection { eject_stage | continue }",
         "description": "Additional actions to take when the program declares orbit conditions are satisfied."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Hohmann Transfer",
@@ -8672,7 +8755,8 @@
         "syntax": "final_radius <length-value>",
         "description": "The semi-major axis (radius) of the final circular orbit."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "iff_mapping",
@@ -8744,7 +8828,8 @@
         "syntax": "by_default",
         "description": "Indicates the IFF mapping between platforms form a given side and all sides and categories not explicitly mapped."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "infrared_signature",
@@ -8756,7 +8841,8 @@
         "syntax": "infrared_signature … end_infrared_signature",
         "description": ""
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "inherent_contrast",
@@ -8798,7 +8884,8 @@
         "syntax": "state <state-name>",
         "description": "Indicates that the following table definition will be used when the platform is in the signature state <state-name>. If <state-name> is default then the subsequent table will be used if the platform is in a signature state that does not match any of the states defined in the signature."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Intercept",
@@ -8840,7 +8927,8 @@
         "syntax": "tolerance <real-value>",
         "description": "Specify the solution search tolerance. The default tolerance is 1.0e-9."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "intersect_mesh",
@@ -8872,7 +8960,8 @@
         "syntax": "file <string-value>",
         "description": "Define the file for the intersection mesh associated with this definition."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "IRST Component",
@@ -8929,7 +9018,8 @@
         "syntax": "capability_uuid <capability-name> <uuid-value>",
         "description": "Sets the capability UUID to the given value."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "launch_computer",
@@ -8961,7 +9051,8 @@
         "syntax": "no_debug",
         "description": "Disables debug printouts during run time."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "line_of_sight_manager",
@@ -9063,7 +9154,8 @@
         "syntax": "processing_rate <positive integer>",
         "description": "The number of line-of-sight updates performed by the worker thread in one cycle. A cycle consists of processing requests, determining priority, and then updating the LOS data. This keeps the thread from getting stuck processing requests and never getting to actually updating the LOS data. It also facilitates pausing the thread, since this can only be done between cycles."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "link16_interface",
@@ -9200,7 +9292,8 @@
         "syntax": "print_messages",
         "description": ""
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "masking_pattern",
@@ -9252,7 +9345,8 @@
         "syntax": "part_factor",
         "description": "Indicates the following table defines a part-relative masking pattern. The azimuth and elevation angles in the table a relative to the part."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Match Velocity",
@@ -9264,7 +9358,8 @@
         "syntax": "platform <string-value>",
         "description": "Specify the name of the platform whose velocity should be matched."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "medium",
@@ -9296,7 +9391,8 @@
         "syntax": "ModeOnTransmit (script)",
         "description": "Defines an optional script method that is invoked every time a message is attempting transmission over this medium. A user may specify the mode intended for transmission over this medium by returning the string identifier for the mode."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "message_table",
@@ -9358,7 +9454,8 @@
         "syntax": "subtype <message-sub-type> <data-size-value> [priority <integer-priority-value>]",
         "description": "Specifies the size and optional priority for a message of the specified sub-type, and the most recently specified type (or default)."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "missile_wez_parameters",
@@ -9500,7 +9597,8 @@
         "syntax": "broadside_pk_reduction <real>",
         "description": "A reduction factor that accounts for broadside effects. This number must be between 0.0 and 1.0. See equation (1) above for usage."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Monte Carlo Iteration",
@@ -9547,7 +9645,8 @@
         "syntax": "run_number_increment <positive-integer>",
         "description": "Set the increment for the runs to be executed. This command is useful for subdividing a large number of Monte Carlo iterations among multiple computers."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "mover",
@@ -9564,7 +9663,8 @@
         "syntax": "update_time_tolerance <time-reference>",
         "description": "When a position update is requested by the simulation, if the time since the previous update is less than or equal to this value then the mover will ignore the update."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "multiresolution_acoustic_signature",
@@ -9636,7 +9736,8 @@
         "syntax": "common … end_common",
         "description": "Defines common parameters to forward to all currently specified acoustic_signature models. These parameters must be valid for all currently defined acoustic_signature models."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "multiresolution_comm",
@@ -9708,7 +9809,8 @@
         "syntax": "common … end_common",
         "description": "Defines common parameters to forward to all currently specified comm models. These parameters must be valid for all currently defined comm models."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "multiresolution_fuel",
@@ -9780,7 +9882,8 @@
         "syntax": "common … end_common",
         "description": "Defines common parameters to forward to all currently specified fuel models. These parameters must be valid for all currently defined fuel models."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "multiresolution_infrared_signature",
@@ -9852,7 +9955,8 @@
         "syntax": "common … end_common",
         "description": "Defines common parameters to forward to all currently specified infrared_signature models. These parameters must be valid for all currently defined infrared_signature models."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "multiresolution_mover",
@@ -9924,7 +10028,8 @@
         "syntax": "common … end_common",
         "description": "Defines common parameters to forward to all currently specified mover models. These parameters must be valid for all currently defined mover models."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "multiresolution_optical_signature",
@@ -9996,7 +10101,8 @@
         "syntax": "common … end_common",
         "description": "Defines common parameters to forward to all currently specified optical_signature models. These parameters must be valid for all currently defined optical_signature models."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "multiresolution_processor",
@@ -10068,7 +10174,8 @@
         "syntax": "common … end_common",
         "description": "Defines common parameters to forward to all currently specified processor models. These parameters must be valid for all currently defined processor models."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "multiresolution_radar_signature",
@@ -10140,7 +10247,8 @@
         "syntax": "common … end_common",
         "description": "Defines common parameters to forward to all currently specified radar_signature models. These parameters must be valid for all currently defined radar_signature models."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "multiresolution_sensor",
@@ -10212,7 +10320,8 @@
         "syntax": "common … end_common",
         "description": "Defines common parameters to forward to all currently specified sensor models. These parameters must be valid for all currently defined sensor models."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Natural Motion Circumnavigation",
@@ -10279,7 +10388,8 @@
         "syntax": "tolerance <real-value>",
         "description": "Specify the solution search tolerance. The default tolerance is 1.0e-9."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "navigation_errors",
@@ -10471,7 +10581,8 @@
         "syntax": "show_status_changes <boolean-value>",
         "description": ""
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "network",
@@ -10483,7 +10594,8 @@
         "syntax": "network_address <address>",
         "description": "If specified, assigns the network to the provided address. The number of assignable objects to this address will also be defined by the address CIDR value. The address provided for this network must not collide with any other network or reserved addresses."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "noise_cloud",
@@ -10595,7 +10707,8 @@
         "syntax": "comm_modifier <name> <value>",
         "description": "This defines the attenuation effect of a cloud hit. comm devices will indicate they will be attenuated by the cloud layer by using the modifier_category command in their definitions. The value is a number 0 - 1. The attenuation value is set up to be a percentage loss per meter within the zone."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Normal",
@@ -10607,7 +10720,8 @@
         "syntax": "delta_v <speed-value>",
         "description": "The delta-V that will be added in the normal direction to the plane containing the current velocity vector (v) and the ECI location vector (r). Positive values will be applied in the same direction as the cross product of v and r, and negative values will be applied in the opposite direction."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "observer",
@@ -10624,7 +10738,8 @@
         "syntax": "disable <EVENT_TYPE> [ <user defined script name> ]",
         "description": "Enable or disable a script observer for the specified <EVENT_TYPE>. If the <user defined script name> is the same as the <EVENT_TYPE> actual script name, the <user defined script name> is not required. Not all of the information that is printed with the event_output command is available to the observer."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "optical_reflectivity",
@@ -10636,7 +10751,8 @@
         "syntax": "optical_reflectivity … end_optical_reflectivity",
         "description": ""
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "optical_signature",
@@ -10648,7 +10764,8 @@
         "syntax": "optical_signature",
         "description": ""
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Orbit Determination Fusion",
@@ -10700,7 +10817,8 @@
         "syntax": "range_error_factor",
         "description": "Specify the factor that is used to compute the range error when fusing an angles-only track with an existing track (from which a range can be estimated). This factor is multiplied times the estimated range to obtain the estimated range error."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Dynamical Term",
@@ -10952,7 +11070,8 @@
         "syntax": "script <script-name>",
         "description": "Specify the script function defined in the global context that computes an acceleration. The script method provided should return a Vec3 with the computed acceleration. The script method will be provided the following arguments: the WsfIntegratingSpaceMover experiencing this dynamical term, the current mass of the platform, the time at which the script is called as a Calendar, the Vec3 ECI position of the platform, and the Vec3 ECI velocity of the platform."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Orbital Event",
@@ -11044,7 +11163,8 @@
         "syntax": "eclipse_exit",
         "description": "Execute the event when the satellite enters or exits earth’s shadow."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Orbital Integrator",
@@ -11116,7 +11236,8 @@
         "syntax": "error_criterion <error-criterion-type>",
         "description": "Set the criterion for assessing the error in a step. The possible values are L_infinity and L_2. Selecting L_infinity will require that the maximum magnitude of any component of the error in the solution be smaller than the specified tolerance. Selecting L_2 will require the square root of the sum of the squared errors be smaller than the tolerance. Further, this error is computed as relative to the difference in the state over the computed step."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "ORBITAL_LAUNCH_COMPUTER_GENER",
@@ -11213,7 +11334,8 @@
         "syntax": "pitch_rates from <angle-rate-value> to <angle-rate-value> by <angle-rate-value>",
         "description": "Range of pitch rate values that overrides the value of ‘pitch_rate’ by any FLIGHT_PATH_ANGLE_PROGRAM on the vehicle."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Orbital Maneuvering Models",
@@ -11465,7 +11587,8 @@
         "syntax": "fuel_mass <mass-value>",
         "description": "Specify the propellant mass, defined to be the initial_mass minus the final_mass."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Orbital Mission Sequence",
@@ -11477,7 +11600,8 @@
         "syntax": "mission_sequence … end_mission_sequence",
         "description": "Specify a sequence of pre-determined orbital mission events. The first mission event specified is executed first, then the second, etc. An optional constraint can be specified to delay execution of the sequence; otherwise the mission event will begin executing at the creation time of the platform."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Debug Output Commands",
@@ -11504,7 +11628,8 @@
         "syntax": "debug_output_xyz <boolean-value>",
         "description": "Write additional information to standard output that can be used for comparing the orbit with the Satellite Tool Kit (STK) from Analytical Graphics, Inc."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "osm_traffic",
@@ -11716,7 +11841,8 @@
         "syntax": "highway <aux-data-variable-name>",
         "description": "Maps an aux_data boolean variable to highway description / type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "P6DOF Aerodynamics Data",
@@ -12153,7 +12279,8 @@
         "syntax": "cLFactor_angle_mach_table",
         "description": "This is a 2-dimensional regular_table that outputs the lift factor based on the Mach and angle of the control surface, with a table order of Mach-angle-value. The lift factor is multiplied by the calculated lift. It is used for lift reducing components such as spoilers. This is DEPRECATED and should not be used in new developments."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "P6DOF Atmosphere File Definition",
@@ -12170,7 +12297,8 @@
         "syntax": "contrail_max_altitude <length-value>",
         "description": "This is the highest altitude at which contrailing will occur."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "P6DOF Pilot Manager and Control Inputs",
@@ -12777,7 +12905,8 @@
         "syntax": "route_allowable_angle_error <angle-value>",
         "description": "This specifies the angular error that is tolerated when rolling-out on a turn when following a route (waypoints). A larger value will allow the vehicle to consider the turn to be complete and switch to route segment control rather than continuing to use turn control."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "P6DOF Environment Support",
@@ -12804,7 +12933,8 @@
         "syntax": "p6dof_wind <filename>",
         "description": "Create a P6DOF wind object using the specified file. Only a single p6dof_wind object should be defined for a given scenario."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "P6DOF Flight Control System Definition",
@@ -12966,7 +13096,8 @@
         "syntax": "threshold_value <real-value>",
         "description": "This sets the value above which a signal will be considered to be true (on)."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "P6DOF Integrators Support",
@@ -12978,7 +13109,8 @@
         "syntax": "p6dof_integrators <filename>",
         "description": "This will load one or more P6DOF integrators by reading/loading the specified file."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "P6DOF Landing Gear",
@@ -13125,7 +13257,8 @@
         "syntax": "is_contact_point <boolean-value>",
         "description": "This indicates if the ground_reaction_point is a contact point (true) or a landing gear (false)."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "P6DOF Mass Properties Data",
@@ -13172,7 +13305,8 @@
         "syntax": "center_of_mass_z <length-value>",
         "description": "The empty center of mass (in the object’s z-direction) relative to the reference point."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "p6dof_object_type",
@@ -13624,7 +13758,8 @@
         "syntax": "object_graphical_alt_type3_num <integer-value>",
         "description": "This defines an alternate object #3 for the object’s graphical type. The tool may use an alternate graphical object as desired and/or commanded."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "p6dof_object_types",
@@ -13636,7 +13771,8 @@
         "syntax": "p6dof_object_types … end_p6dof_object_types",
         "description": ""
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "P6DOF Platform Mappings",
@@ -13648,7 +13784,8 @@
         "syntax": "map_p6dof_object_to_platform <p6dof_object_type_name> <platform_name> … end_map_p6dof_object_to_platform",
         "description": "Define a mapping between the specified p6dof_object_type and the specified platform type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "P6DOF Propulsion System Definition",
@@ -13800,7 +13937,8 @@
         "syntax": "throttle_setting_pitch <string>",
         "description": "to control the pitch thrust vectoring control setting. This can be done at the engine-level or in the propulsion_data of the p6dof_object_type, although in most cases, defining in the propulsion_data block is best."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "P6DOF Sequencers",
@@ -14027,7 +14165,8 @@
         "syntax": "remove_sequencer <string>",
         "description": "This removes the specified sequencer. It is typically used to remove a sequencer that was derived from a parent class object. If no sequencer with the specified name exists, the command is ignored."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "P6DOF Subobjects",
@@ -14159,7 +14298,8 @@
         "syntax": "separation_omega_z <length-value>",
         "description": "This specifies the z-component of angular velocity (in subobject body coordinates) that is imparted to the subobject when it separates from the parent."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "P6DOF Thrust Producer Types",
@@ -14886,7 +15026,8 @@
         "syntax": "creates_smoke_trail <boolean-value>",
         "description": "This determines whether or not the rocket will generate a smoke trail appearance. By default, liquid-propellant rockets do not produce a smoke trail, but solid-propellant rockets do produce a smoke trail."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "platform",
@@ -15193,7 +15334,8 @@
         "syntax": "weapon_effects_type <string-reference>",
         "description": "This command defines name of the weapon_effects for the platform. This is typically used only when the platform is the WSF_EXPLICIT_WEAPON of WSF_EXPLICIT_WEAPON."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Platform Part Commands",
@@ -15430,7 +15572,8 @@
         "syntax": "non_restorable",
         "description": "Define the ability of the part to recover from damage factor = 1.0. If non_restorable, the part damage latches at 1.0."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "point_mass_vehicle_type",
@@ -15842,7 +15985,8 @@
         "syntax": "nominal_max_beta <angle-value>",
         "description": "This defines the maximum beta (angle of sideslip) expected by the object. This does not impose a limit on performance, rather it is a hint for functions that calculate performance and/or analysis."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "post_processor",
@@ -16229,7 +16373,8 @@
         "syntax": "options … end_options",
         "description": "Specifies other options that applies to the weapon expenditures subreport. (Currently not implemented)"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "processor",
@@ -16241,7 +16386,8 @@
         "syntax": "update_interval <time-reference>",
         "description": "If non-zero, specifies a periodic time interval at which the simulation will call the processor. If zero then the processor will only respond to explicit messages."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "propagation_model",
@@ -16283,19 +16429,22 @@
         "syntax": "surface_roughness <length-value>",
         "description": "Define the standard deviation of the variation in the height of the surface."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "propagator",
     "syntax": "propagator … end_propagator",
     "description": "",
-    "subCommands": []
+    "subCommands": [],
+    "blockKeyword": ""
   },
   {
     "name": "protocol",
     "syntax": "protocol <name-or-type> <base-type-name> … end_protocol",
     "description": "",
-    "subCommands": []
+    "subCommands": [],
+    "blockKeyword": ""
   },
   {
     "name": "Radar Signal Processors",
@@ -17172,7 +17321,8 @@
         "syntax": "debug",
         "description": "Presence of this flag indicates the STC Signal Processor will output additional operational messages to the system console."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "radar_signature",
@@ -17304,7 +17454,8 @@
         "syntax": "elevation",
         "description": "Specifies the minimum target->transmitter elevation angle, between [-90.0, 90.0] degrees, for the entered table. Must specify at least two monotonically increasing angles. Tables are a function of the target->receiver azimuth/elevation angles."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "receiver",
@@ -17436,7 +17587,8 @@
         "syntax": "electronic_protect … end_electronic_protect",
         "description": "A block that defines the Electronic Protection (EP) capabilities within the receiver. See electronic_protect for the available commands."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Rendezvous",
@@ -17478,7 +17630,8 @@
         "syntax": "tolerance <real-value>",
         "description": "Specify the solution search tolerance. The default tolerance is 1.0e-9."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "rigid_body_vehicle_type",
@@ -17890,7 +18043,8 @@
         "syntax": "nominal_max_beta <angle-value>",
         "description": "This defines the maximum beta (angle of sideslip) expected by the object. This does not impose a limit on performance, rather it is a hint for functions that calculate performance and/or analysis."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "road_traffic",
@@ -18182,7 +18336,8 @@
         "syntax": "outer_weight <fractional-quantity>",
         "description": "Specifies the weight that corresponds to the outer radius. The larger the weight number, the higher the density of vehicles."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "route",
@@ -18399,7 +18554,8 @@
         "syntax": "transform_route <route-name> <latitude> <longitude> <heading>",
         "description": "Transforms the named route and inserts its waypoints into the route being defined. The named route should have already been defined as a ‘route type’. All points in the named route that were defined using the offset command are transformed to a new coordinate system whose origin and orientation are defined below and then internally converted to position points."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "route_network",
@@ -18451,7 +18607,8 @@
         "syntax": "verbose",
         "description": "Generates additional debug data when used with the test command. The following data is output to the console for each path tested:"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "router",
@@ -18488,7 +18645,8 @@
         "syntax": "use_multicast_protocol <boolean-value>",
         "description": "A convenience setting to determine if the router should use the default multicast routing protocol. True indicates to use this routing_protocol, false to remove it."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "router_protocol",
@@ -18515,7 +18673,8 @@
         "syntax": "delete router_protocol <name> end_router_protocol",
         "description": ""
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "SAM_LAUNCH_COMPUTER_GENERATOR",
@@ -18682,7 +18841,8 @@
         "syntax": "effective_earth_radius <ratio-value>",
         "description": "Set the effective earth radius ratio. Must be greater than zero."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Scheduler Commands",
@@ -19009,7 +19169,8 @@
         "syntax": "starting_azimuth_randomized <boolean-value>",
         "description": "Specifies the starting angle of the sensor scan to be determined randomly. Unlike most AFSIM commands, this will warn user if it is subsequently overridden by the starting_beam_azimuth command."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Script Commands",
@@ -19081,7 +19242,8 @@
         "syntax": "script … end_script",
         "description": "Defines a script that is callable by all platforms in the simulation."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "script_struct",
@@ -19103,7 +19265,8 @@
         "syntax": "uncloneable",
         "description": "Specify that instances of this script_struct cannot be cloned."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Scripted",
@@ -19130,7 +19293,8 @@
         "syntax": "is_complete …script_body… end_is_complete",
         "description": "Define a script that determines whether the script event is complete. If false, the event continues to execute; if true, the event is considered complete, and the on_complete script is called. If defined, this script is called immediately after each event update, and it overrides any duration command."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "sea_traffic",
@@ -19392,7 +19556,8 @@
         "syntax": "sigma_speed <speed>",
         "description": "The standard deviation for the ship’s speed."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Section Formation",
@@ -19454,7 +19619,8 @@
         "syntax": "lead",
         "description": "Specify that the following unit sub-formation is to be the lead sub-formation of this section. Sections defined in input files must have one of their sub-formations designated as the lead sub-formation."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Sensor",
@@ -20086,7 +20252,8 @@
         "syntax": "send_track_drop_on_turn_off <boolean-value>",
         "description": "Indicates if ‘track drop’ messages should be sent for each active track when the sensor is turned off."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "SOSM sensor model",
@@ -20193,7 +20360,8 @@
         "syntax": "resolution <wavenumber-value>",
         "description": "Default 20 cm-1"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "sensor_plot",
@@ -20315,7 +20483,8 @@
         "syntax": "ignore_word <word>",
         "description": "Causes the word <word> to be ignored."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Sensor_plot_antenna_plot",
@@ -20517,7 +20686,8 @@
         "syntax": "output_column_limit <integer>",
         "description": "Specifies the maximum number of columns per physical line in the output file when axes both is specified."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Sensor Plot Clutter Table",
@@ -20679,7 +20849,8 @@
         "syntax": "sensor_platform_roll <angle-value>",
         "description": "Specify the sensor platform’s roll value."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Sensor Plot Flight Path Analysis",
@@ -20911,7 +21082,8 @@
         "syntax": "header_line_3 <text>",
         "description": "Specifies the text to be contained in the first three lines of the output file."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Sensor Plot Horizontal Coverage",
@@ -21123,7 +21295,8 @@
         "syntax": "output_max_range",
         "description": "If specified, the program will write a message to standard output indicating the maximum range at which the target was detected."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Sensor Plot Horizontal Map",
@@ -21675,7 +21848,8 @@
         "syntax": "units <data-units>",
         "description": "Specifies the units of the data."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "sensor_plot_spherical_map",
@@ -22007,7 +22181,8 @@
         "syntax": "gnuplot_file <file-name>",
         "description": "Specifies the name of the file to which ‘gnuplot’ output will be written."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Sensor Plot Vertical Coverage",
@@ -22219,7 +22394,8 @@
         "syntax": "output_max_range",
         "description": "If specified, the program will write a message to standard output indicating the maximum range at which the target was detected."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "sensor_plot_vertical_map",
@@ -22471,7 +22647,8 @@
         "syntax": "gnuplot_player_file <file-name>",
         "description": "Specifies the name of the file to which player’s Down range/Cross range or Latitude/Longitude will be written. Will not output target locations."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "simdis_interface",
@@ -22573,7 +22750,8 @@
         "syntax": "define_fhn <side> <F|H|N>",
         "description": "This sets the friendly/hostile/neutral association with the given side. May be input multiple time for each side."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Simulation Control Commands",
@@ -22790,7 +22968,8 @@
         "syntax": "process_priority <string>",
         "description": "Specify the Windows OS process priority for realtime operation of simulation."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "SixDOF Aerodynamics Data",
@@ -23252,7 +23431,8 @@
         "syntax": "clr_angle_mach_table",
         "description": "This is a 2-dimensional regular_table that outputs the roll damping coefficient due to yaw rate (clr) based on Mach and the angle of the control surface."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "SixDOF Pilot Manager and Control Inputs",
@@ -24264,7 +24444,8 @@
         "syntax": "route_allowable_angle_error <angle-value>",
         "description": "This specifies the angular error that is tolerated when rolling-out on a turn when following a route (waypoints). A larger value will allow the vehicle to consider the turn to be complete and switch to route segment control rather than continuing to use turn control."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "SixDOF Flight Control System Definition",
@@ -24461,7 +24642,8 @@
         "syntax": "threshold_value <real-value>",
         "description": "This sets the value above which a signal will be considered to be true (on)."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "SixDOF Formations",
@@ -24543,7 +24725,8 @@
         "syntax": "lead",
         "description": "When prefixed before a sub-formation command, this indicates that the following formation defined is the lead sub-formation of the enclosing parent formation. Formation defined in input must have one (and only one) lead sub-formation defined."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "SixDOF Landing Gear",
@@ -24690,7 +24873,8 @@
         "syntax": "is_contact_point <boolean-value>",
         "description": "This indicates if the ground_reaction_point is a contact point (true) or a landing gear (false)."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "SixDOF Mass Properties Data",
@@ -24737,7 +24921,8 @@
         "syntax": "center_of_mass_z <length-value>",
         "description": "The empty center of mass (in the object’s z-direction) relative to the reference point."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "six_dof_object_types",
@@ -24769,7 +24954,8 @@
         "syntax": "terrain <file-name>",
         "description": "Create a SixDOF terrain object using the specified file. Only a single terrain object should be defined for a given scenario."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "SixDOF Platform Mappings",
@@ -24781,7 +24967,8 @@
         "syntax": "map_vehicle_to_platform <six_dof_vehicle_type_name> <platform_name> … end_map_vehicle_to_platform",
         "description": "Define a mapping between the specified six_dof_vehicle_type and the specified platform type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "SixDOF Propulsion System Definition",
@@ -24933,7 +25120,8 @@
         "syntax": "throttle_setting_pitch <string>",
         "description": "This specifies the control_value defined in flight_controls that will be used to control the pitch thrust vectoring control setting."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Section Formation",
@@ -24995,7 +25183,8 @@
         "syntax": "lead",
         "description": "Specify that the following unit sub-formation is to be the lead sub-formation of this section. Sections defined in input files must have one of their sub-formations designated as the lead sub-formation."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "SixDOF Sequencers",
@@ -25222,7 +25411,8 @@
         "syntax": "remove_sequencer <string>",
         "description": "This removes the specified sequencer. It is typically used to remove a sequencer that was derived from a parent class object. If no sequencer with the specified name exists, the command is ignored."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "SixDOF Subobjects",
@@ -25354,7 +25544,8 @@
         "syntax": "separation_omega_z <length-value>",
         "description": "This specifies the z-component of angular velocity (in subobject body coordinates) that is imparted to the subobject when it separates from the parent."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "SixDOF Thrust Producer Types",
@@ -25931,7 +26122,8 @@
         "syntax": "propellant_rel_pos_z <length-value>",
         "description": "This specified the center of mass (in the z-direction of rocket-coordinates) of the propellant mass relative to the reference point of the rocket. To avoid changing the vehicle’s performance, the value here should be moved as-is to the cg_full_z and cg_empty_z values of a fuel_tank created for the engine. For more accuracy, this value may be added to the engine’s rel_pos_z value in migrating to cg_full_z and cg_empty_z."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Unit Formation",
@@ -25983,7 +26175,8 @@
         "syntax": "member_platform <platform_name>",
         "description": "Set the member platform of the unit formation to be the platform with the given name."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "sosm_interface",
@@ -26165,7 +26358,8 @@
         "syntax": "ranging_time_track_quality <quality-value>",
         "description": "If the ranging time is used to generate a track with range information, this parameter controls the track quality once range is valid. The quality-value must be non-negative."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Table Values",
@@ -26342,7 +26536,8 @@
         "syntax": "save_as_morton_indexed_binary_file <file-name>",
         "description": "Save the generated table to file, which can then be passed to the binary_data_file command"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Tangent",
@@ -26354,7 +26549,8 @@
         "syntax": "delta_v <speed-value>",
         "description": "The given delta-V to be applied. Positive values will be applied in the same direction as the velocity vector, and negative values will be applied in the opposite direction."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Target",
@@ -26396,7 +26592,8 @@
         "syntax": "tolerance <real-value>",
         "description": "Specify the solution search tolerance. The default tolerance is 1.0e-9."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "SOSM target model simple",
@@ -26463,7 +26660,8 @@
         "syntax": "throttle_range <lower-value> <upper-value>",
         "description": "Defines the throttle range for which the enclosing state applies."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "SOSM target model table",
@@ -26610,7 +26808,8 @@
         "syntax": "plume_intensity <file-name>",
         "description": "Load signature files without using the assumed suffixes."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Target Recognition Commands",
@@ -26757,7 +26956,8 @@
         "syntax": "identification_coast_time <time-reference>",
         "description": "Defines the amount of time an object can remain in a state without receiving a detection that does not meet the Johnson criteria for that state."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Target Specification Commands",
@@ -26849,7 +27049,8 @@
         "syntax": "lag_time <time-value>",
         "description": "Specify a lag time for the target. If a lag time is specified, the actual target will be advanced by the specified time along its motion relative to where the targeting operation is aimed. For example, the performer of a Rendezvous maneuver that has a lag_time specified will achieve an orbit that follows along the orbit of the target platform, but will be the given time behind the target in its orbit."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Teardrop",
@@ -26976,7 +27177,8 @@
         "syntax": "tolerance <real-value>",
         "description": "Specify the solution search tolerance. The default tolerance is 1.0e-9."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "terrain",
@@ -27078,7 +27280,8 @@
         "syntax": "disable",
         "description": "Prevent the use of terrain elevation data by the framework. This is typically used to temporarily disable the use of terrain for the current simulation."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "thermal_system",
@@ -27220,7 +27423,8 @@
         "syntax": "recharge_rate <real-value>",
         "description": ""
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "track",
@@ -27292,7 +27496,8 @@
         "syntax": "platform <platform-name>",
         "description": "The platform whose truth location to use when initially populating the location data in the track, if no location is specified. The platform must be defined prior to the track."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "track_manager",
@@ -27424,7 +27629,8 @@
         "syntax": "type_specific_tracker_inputs",
         "description": "Various inputs will be valid, based on the tracker_type selected. Specifically, see the :ref:` mtt <MTT Configuration>` inputs for the MTT tracker."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "transmitter",
@@ -27586,7 +27792,8 @@
         "syntax": "electronic_attack … end_electronic_attack",
         "description": "Defines the electronic attack capabilities of the transmitter. See electronic_attack."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "uci_interface",
@@ -27628,7 +27835,8 @@
         "syntax": "service_descriptor <string>",
         "description": "Specifies an arbitrary descriptive label to that is associated with the UCI service identifier. This label is embedded into the xml as part of the service identifier for all transmitted messages over the Abstract Bus."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Weapon Component",
@@ -27675,7 +27883,8 @@
         "syntax": "store_type int",
         "description": "Add a store type to the weapon."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Unit Formation",
@@ -27727,7 +27936,8 @@
         "syntax": "member_platform <platform_name>",
         "description": "Set the member platform of the unit formation to be the platform with the given name."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Universal Command and Control Interface (UCI)",
@@ -27759,7 +27969,8 @@
         "syntax": "subsystem_descriptor <string-value>",
         "description": "Sets the human readable description for the subsystem."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Visual Elements Data",
@@ -27896,7 +28107,8 @@
         "syntax": "align_north",
         "description": "By default, the zero-angle offset of the ring is relative to the entity’s heading. This flag aligns it with true north instead."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "visual_part",
@@ -27908,7 +28120,8 @@
         "syntax": "visual_part … end_visual_part",
         "description": ""
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "weapon",
@@ -28010,7 +28223,8 @@
         "syntax": "weapon_effects <string-reference>",
         "description": "Specifies the type of the weapon_effects to be used for determining weapon effectiveness. See the page on weapon_effects for more details."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "weapon_effects",
@@ -28152,7 +28366,8 @@
         "syntax": "script void on_weapon_target_engagement(WsfPlatform aTarget) … end_script",
         "description": "This script may be invoked repeatedly for a single weapon detonation. It is invoked once for each target that might be possibly affected by the weapon. When called, any of the methods defined in WsfWeaponEngagement are available. aTarget refers to the current target WsfPlatform being considered."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "weapon_tools",
@@ -28314,7 +28529,8 @@
         "syntax": "output_file_name <file-name>",
         "description": "Specify the name of the file produced by the tool."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_ACCESS_DURATION_MOE",
@@ -28341,7 +28557,8 @@
         "syntax": "output <output_type> … end_output",
         "description": "Specify a form of output to produce for a measure of effectiveness. The allowed values for <output_type> are:"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_ACOUSTIC_SENSOR",
@@ -28378,7 +28595,8 @@
         "syntax": "background_noise [ jungle_day | jungle_night | industrial | rural | residential ]",
         "description": "Defines the type of acoustic background."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_AGILITY_EFFECT",
@@ -28405,7 +28623,8 @@
         "syntax": "agility_type <agility-type> … end_agility_type",
         "description": "Input block to provide the agility-type of this effect and associated input commands for this agility-type. The specified agility-type is applied when a comm system or radar sensor perceives jamming. For this effect to properly function a radar sensor’s jamming_perception_threshold and jamming_perception_timeout or a comm’s jamming_perception_threshold and jamming_perception_timeout should be properly defined."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_AIR_MOVER",
@@ -28802,7 +29021,8 @@
         "syntax": "maximum_impact_speed <speed-value>",
         "description": "Specify the maximum speed above which the associated platform intersects terrain and is considered ‘crashed into the ground’. A crashed platform will notify observers via the WsfSimulationObserver::CrashedIntoGround() method and remove itself from the simulation. If impact speed is below this maximum, the platform is considered to be ‘landing’. The default behavior is to always land, rather than crash."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_AIR_TO_AIR_LAUNCH_COMPUTER",
@@ -28959,7 +29179,8 @@
         "syntax": "Rmax <length-value> <time-value>",
         "description": "Maximum range and time-of-flight for this condition, beyond which intercept is unsuccessful."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_ALPHA_BETA_FILTER",
@@ -28996,7 +29217,8 @@
         "syntax": "debug",
         "description": "Writes debugging information to the standard output."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_ALPHA_BETA_GAMMA_FILTER",
@@ -29043,7 +29265,8 @@
         "syntax": "debug",
         "description": "Writes debugging information to the standard output."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_ARGO8_MOVER",
@@ -29140,7 +29363,8 @@
         "syntax": "endgame_gees <real-value>",
         "description": "Specifies minimum number of g’s at endgame is required for the missile to fuze."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_ASSET_MANAGER",
@@ -29417,7 +29641,8 @@
         "syntax": "ttr_required <boolean-value>",
         "description": "A TTR radar is required for status GREEN."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_ATA_LAUNCH_COMPUTER",
@@ -29614,7 +29839,8 @@
         "syntax": "maximum_ground_range <range>",
         "description": "Specifies the maximum range that will be used to generate the intercept envelope."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_ATG_LAUNCH_COMPUTER",
@@ -29711,7 +29937,8 @@
         "syntax": "use_zone <global-zone-name> as <zone-name>",
         "description": "Specifies the zone that defines the LAR."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_BALLISTIC_LAUNCH_COMPUTER",
@@ -29768,7 +29995,8 @@
         "syntax": "downrange_values …",
         "description": "The down range distance from launch location to impact location, when the weapon is released at the specified launch altitude, target altitude and launch speed. The number of values provided must equal the number of launch altitudes X number of target altitudes X number of launch speeds, and the latter indices cycle faster than the former (typical “matrix” order)."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_BALLISTIC_MISSILE_LAUNCH_COMPUTER",
@@ -29955,7 +30183,8 @@
         "syntax": "mass <mass-value>",
         "description": "Specify the expended mass to be associated with this target type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_BATTLE_MANAGER",
@@ -30082,7 +30311,8 @@
         "syntax": "hostiles <boolean-value>",
         "description": "Default: False"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_BEAM_DIRECTOR",
@@ -30129,7 +30359,8 @@
         "syntax": "min_pixels_for_cue <integer-value>",
         "description": "Specify the minimum number of pixels required to initiate a successful transition to a cued mode."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_BRAWLER_FUEL",
@@ -30156,7 +30387,8 @@
         "syntax": "initial_quantity_ratio <real>",
         "description": "Specifies the initial quantity of fuel as a ratio of the maximum fuel capacity defined in the aero_file configuration."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_BRAWLER_MOVER",
@@ -30183,7 +30415,8 @@
         "syntax": "draw_projection",
         "description": "If specified, yellow dots will be rendered to the DIS replay file that represent the forward projection of the BRAWLER mover given its current maneuver command."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_BRAWLER_PROCESSOR",
@@ -30260,7 +30493,8 @@
         "syntax": "consciousness_event_update_time <time-value>",
         "description": "Override BRAWLER consciousness event timing. If specified, all consciousness events will occur at this interval. Otherwise a dynamic timing calculation will regularly occur to determine proper consciousness event update times."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_CARLTON_LETHALITY",
@@ -30287,7 +30521,8 @@
         "syntax": "lethal_area <target-type> <area-value>",
         "description": "Specify the lethal area (LA) for a target of the specified type. This command should be repeated for all target types to which this lethality object will be applicable."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_CHAFF_PARCEL",
@@ -30384,7 +30619,8 @@
         "syntax": "number_dipoles <integer-value>",
         "description": "If the frequency_maximum_rcs_table is not defined, can be computed as a function of the number of chaff dipoles and the radar wavelength, assuming randomly oriented half-wave dipoles, according to the equation above."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_CHAFF_WEAPON",
@@ -30481,7 +30717,8 @@
         "syntax": "ejection_azimuth <angle-value>",
         "description": "Specifies the magnitude, azimuth, and elevation of the vector in the entity coordinate system that represents the additional velocity, relative to the dispensing platform, provided by the launching mechanism. Similar to launch_delta_v except specified in spherical rather than cartesian coordinates."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COHERENT_SENSOR_PROCESSOR",
@@ -30588,7 +30825,8 @@
         "syntax": "message_priority <integer-priority>",
         "description": "Specify the priority assigned to the track messages that are created from the image."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMM_EFFECT",
@@ -30615,7 +30853,8 @@
         "syntax": "message_behavior <behavior-type> … end_message_behavior",
         "description": "Input block to provide the behavior type this communication effect exhibits."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMM_MEDIUM_GUIDED",
@@ -30652,7 +30891,8 @@
         "syntax": "packet_loss_time <random-time-reference>",
         "description": "Sets a time that adds to the delay in every transmission over this medium. Although indicated as a delay due to packet loss, this value can be used to introduce a delay to the normal transmission time over the medium for any reason, or as an aggregate delay due to modeling multiple sources of transmission delay."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMM_MEDIUM_UNGUIDED",
@@ -30699,7 +30939,8 @@
         "syntax": "bit_error_rate_ebno_table <absolute-units><ratio-units><BER-value 1> <Eb/No-value 1> … end_bit_error_rate_ebno_table",
         "description": "Optional table that defines the Energy per Bit to the Spectral Noise Density (Eb/No) vs. Bit Error Rate (BER). Used in conjunction with the bit_error_probability and error_correction to calculate the data transfer rate over the medium. When using this table Data Rate = SNR* Error Correction * ( Bandwidth / Eb/No ). The Bit-Error-Rate-EbNo-Table will be interpolated. If a table is specified, the table transfer rate values will override the value specified with the transfer_rate command."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMM_NETWORK_AD_HOC",
@@ -30756,7 +30997,8 @@
         "syntax": "remove_address_update_rate <address>",
         "description": "Removes a unique update rate entry for the comm specified by comm address. Sets the specified comm to use the general update rate assigned via the update_rate command."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMM_NETWORK_DIRECTED_RING",
@@ -30783,7 +31025,8 @@
         "syntax": "address_list … end_address_list",
         "description": "Members of this network may be specified by identifying a comm object by its address. Each entry in this list is prefixed by the “member” command. This list is only available to comm objects that have specified addresses in input, as comms without specified addresses will be dynamically allocated at runtime."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMM_NETWORK_GENERIC",
@@ -30830,7 +31073,8 @@
         "syntax": "address_link_list … end_address_link_list",
         "description": "Specifies a link between comm objects defined by their addresses. The order specified matters, as a link is only created from the first address specified to the second. Each entry in this list is prefixed by the “link” command."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMM_NETWORK_MESH",
@@ -30857,7 +31101,8 @@
         "syntax": "address_list … end_address_list",
         "description": "Members of this network may be specified by identifying a comm object by its address. Each entry in this list is prefixed by the “member” command. This list is only available to comm objects that have specified addresses in input, as comms without specified addresses will be dynamically allocated at runtime."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMM_NETWORK_MESH_LEGACY",
@@ -30884,7 +31129,8 @@
         "syntax": "address_list … end_address_list",
         "description": "Members of this network may be specified by identifying a comm object by its address. Each entry in this list is prefixed by the “member” command. This list is only available to comm objects that have specified addresses in input, as comms without specified addresses will be dynamically allocated at runtime."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMM_NETWORK_P2P",
@@ -30911,7 +31157,8 @@
         "syntax": "address_list … end_address_list",
         "description": "Members of this network may be specified by identifying a comm object by its address. Each entry in this list is prefixed by the “member” command. This list is only available to comm objects that have specified addresses in input, as comms without specified addresses will be dynamically allocated at runtime."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMM_NETWORK_RING",
@@ -30938,7 +31185,8 @@
         "syntax": "address_list … end_address_list",
         "description": "Members of this network may be specified by identifying a comm object by its address. Each entry in this list is prefixed by the “member” command. This list is only available to comm objects that have specified addresses in input, as comms without specified addresses will be dynamically allocated at runtime."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMM_NETWORK_STAR",
@@ -30985,7 +31233,8 @@
         "syntax": "hub_address <address-value>",
         "description": "Specifies the star network hub comm object by its address. This hub must be a member of the network."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMM_PROTOCOL_IGMP",
@@ -31062,7 +31311,8 @@
         "syntax": "leave_delay <random-time-reference>",
         "description": "Specifies the time required to leave a multicast group, for more advanced modeling of network characteristics. This may also affect how other protocols who use multicast (such as OSPF) function, due to delayed propagation of multicast group data amongst routers. Future plans of script capabilities in joining and leaving multicast groups will be affected by this value."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMM_ROUTER_PROTOCOL_AD_HOC",
@@ -31159,7 +31409,8 @@
         "syntax": "OnMessageRouting (script)",
         "description": "Defines an optional script that is invoked immediately when a message requires routing on an interface belonging to this protocol’s router."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMM_ROUTER_PROTOCOL_OSPF",
@@ -31236,7 +31487,8 @@
         "syntax": "hold_timer <random-time-reference>",
         "description": "Defines the amount of time that before a member is dropped if a hello packet is not received. Note that the default value allows multiple hello packet transmission windows before actually being dropped due to hold time. Ensure that this value is greater than the hello_interval to avoid dropping all members from network state knowledge."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMM_ROUTER_PROTOCOL_RIPv2",
@@ -31283,7 +31535,8 @@
         "syntax": "poisoned_reverse <boolean-value>",
         "description": "Specifies whether to use split horizon, or split horizon with poisoned reverse. Split horizon is a scheme for avoiding sending routes in updates to routers from which they were learned. Poisoned reverse includes such routes in updates, but sets their metrics to be unusable."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMPOSITE_GRID",
@@ -31340,7 +31593,8 @@
         "syntax": "subgrid <name> <grid-type> … end_subgrid",
         "description": "Add a sub-grid of the given <grid-type> with the given <name> to this grid. The subgrid is then configured according to the selected type, and will support any command that the selected grid type supports. The types of sub-grids supported are those that create their own platforms."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMPOSITE_OPTICAL_SIGNATURE",
@@ -31627,7 +31881,8 @@
         "syntax": "projected_area Azimuth-elevation_Table_Definition",
         "description": "Specifies an azimuth-elevation table definition."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COMPOSITE_SENSOR",
@@ -31674,7 +31929,8 @@
         "syntax": "track_quality [ 0 .. 1 ]",
         "description": "Specifies the track quality to be assigned to the composite tracks produced by this sensor when the operating_mode is independent. This value is used only if it is greater than zero. If the value is zero then the track quality for the constituent tracks will be used."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COVER_PULSE_EFFECT",
@@ -31711,7 +31967,8 @@
         "syntax": "system_type_data <system-type-name> … end_system_type_data",
         "description": "Input block to provide the system type (e.g., SENSOR-TYPE, JAMMER-TYPE) specific data necessary to implement this technique for a given system type. Default data can be set up for system types not defined using the “default” string as the system type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Coverage",
@@ -31928,7 +32185,8 @@
         "syntax": "device_type <device-type> <constraint-type> <time-value> [<time-value>]",
         "description": "Specify that access intervals involving devices with the given <device-type> will be filtered according to the given <constraint-type>."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Coverage Grid",
@@ -31985,7 +32243,8 @@
         "syntax": "suppress_grid_platforms <boolean-value>",
         "description": "This command allows for the suppression of grid asset platforms in DIS output and in distributed simulations. This suppression only applies for platforms created by a grid. This suppression is enabled by default."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_LAT_LON_GRID",
@@ -32112,7 +32371,8 @@
         "syntax": "asset <platform-type> <device-name>",
         "description": "Specify the assets associated with this grid will be instances of <platform-type> and will use the device with the name <device-name>. The given <device-name> may also be ‘none’ if the grid points are passive targets for the coverage computation in question."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "Measure of Effectiveness",
@@ -32139,7 +32399,8 @@
         "syntax": "output <output_type> … end_output",
         "description": "Specify a form of output to produce for a measure of effectiveness. The allowed values for <output_type> are:"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_COVERAGE_TIME_MOE",
@@ -32166,7 +32427,8 @@
         "syntax": "output <output_type> … end_output",
         "description": "Specify a form of output to produce for a measure of effectiveness. The allowed values for <output_type> are:"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_ZONE_BASED_GRID",
@@ -32283,7 +32545,8 @@
         "syntax": "asset <platform-type> <device-name>",
         "description": "Specify the assets associated with this grid will be instances of <platform-type> and will use the device with the name <device-name>. The given <device-name> may also be ‘none’ if the grid points are passive targets for the coverage computation in question."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_CUED_LASER_WEAPON",
@@ -32310,7 +32573,8 @@
         "syntax": "use_default_beam_director",
         "description": "Disables the ability to specify a WSF_BEAM_DIRECTOR to link the WSF_CUED_LASER_WEAPON with. When this command is used, the laser will not search for the WSF_BEAM_DIRECTOR specified by the beam_director command, instead linking to the first WSF_BEAM_DIRECTOR it encounters."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_CYBER_COMPOSITE_TRIGGER",
@@ -32337,7 +32601,8 @@
         "syntax": "triggers … end_triggers",
         "description": "Specifies the triggers whose results of OnEvaluate should be logically combined to trigger this effect."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_CYBER_DETONATE_EFFECT",
@@ -32364,7 +32629,8 @@
         "syntax": "weapon_name <string>",
         "description": "All weapons on a victim platform that have the specified weapon name (as defined by the user in a scenario) will be detonated."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_CYBER_MAN_IN_THE_MIDDLE_EFFECT",
@@ -32476,7 +32742,8 @@
         "syntax": "OnReceive (script)",
         "description": "A provided script that will be called when a specified comm attempts to receive a message. This script allows for the ability to alter, delay, or drop a WsfMessage."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_CYBER_SCRIPT_EFFECT",
@@ -32513,7 +32780,8 @@
         "syntax": "default … end_default",
         "description": "Define the effect scripts for any victim that does is not specified by platform or platform_type. This command is only valid once, and multiple instances of this block will only use the last declared instance of this block."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_CYBER_SCRIPT_EFFECT_ENHANCED",
@@ -32580,7 +32848,8 @@
         "syntax": "restore",
         "description": "The ‘Restore’ script is invoked when it has been determined that the victim has recovered from the attack. The method should take the necessary actions to rescind whatever actions were taken by the Attack script (essentially restoring the platform to the state that existed prior to the attack)."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_CYBER_TOGGLE_COMMS_EFFECT",
@@ -32647,7 +32916,8 @@
         "syntax": "select_all",
         "description": "Specifying this command in lieu of the target_list will disable all comms on the victim platform. Defining both the select_all and target_list block commands will result in an error in loading the scenario input."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_CYBER_TOGGLE_PROCESSORS_EFFECT",
@@ -32714,7 +32984,8 @@
         "syntax": "select_all",
         "description": "Specifying this command in lieu of the target_list will disable all processors on the victim platform. Defining both the select_all and target_list block commands will result in an error in loading the scenario input."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_CYBER_TOGGLE_SENSORS_EFFECT",
@@ -32781,7 +33052,8 @@
         "syntax": "select_all",
         "description": "Specifying this command in lieu of the target_list will disable all sensors on the victim platform. Defining both the select_all and target_list block commands will result in an error in loading the scenario input."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_CYBER_TOGGLE_WEAPONS_EFFECT",
@@ -32848,7 +33120,8 @@
         "syntax": "select_all",
         "description": "Specifying this command in lieu of the target_list will disable all weapons on the victim platform. Defining both the select_all and target_list block commands will result in an error in loading the scenario input."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_CYBER_TRACK_MANAGER_EFFECT",
@@ -32925,7 +33198,8 @@
         "syntax": "local_track_history_purging <boolean-value>",
         "description": "Defines if this effect allows for local track history purging during the lifetime of the effect."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_CYBER_TRACK_PROCESSOR_EFFECT",
@@ -32972,7 +33246,8 @@
         "syntax": "remove_target_processor <processor-type>",
         "description": "Useful for a derived effect type, these commands remove an explicit processor name or processor type that this effect is valid against."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_DELAY_PROCESSOR",
@@ -33039,7 +33314,8 @@
         "syntax": "time_distribution log_normal mean_time <mean-time-value> sigma_time <sigma-time-value>",
         "description": "Defines that the simulated time for a message will be drawn from a log-normal distribution with the specified mean and standard deviation."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_DIRECTION_FINDER_PROCESSOR",
@@ -33156,7 +33432,8 @@
         "syntax": "test <boolean-value>",
         "description": "Enable output of diagnostic messages and a WsfDraw-based representation of each direction-finding solution. Diagnostic messages are output when candidate direction finding solutions fail due to the following:"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_DISSEMINATE_C2",
@@ -33283,7 +33560,8 @@
         "syntax": "status [peer | commander | dynamic | none]",
         "description": "This command sets the routing for asset statuses."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_DISTANCE_STEPPED_GRID",
@@ -33390,7 +33668,8 @@
         "syntax": "asset <platform-type> <device-name>",
         "description": "Specify the assets associated with this grid will be instances of <platform-type> and will use the device with the name <device-name>. The given <device-name> may also be ‘none’ if the grid points are passive targets for the coverage computation in question."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_DUMP_MESSAGE_PROCESSOR",
@@ -33407,7 +33686,8 @@
         "syntax": "verbose",
         "description": "Also produce detailed output about certain known messages. At the current time this is limited to WsfTrackMessage and WsfTrackDropMessage."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_EA_TECHNIQUE",
@@ -33444,7 +33724,8 @@
         "syntax": "mitigation_class_name <string-value>",
         "description": "Set the technique’s mitigation class name. Used to map electronic attack techniques to electronic protection techniques that can mitigate them using the mitigated_technique_classes command."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_ENGAGE_LAUNCH_PK_TABLE_LETHALITY",
@@ -33481,7 +33762,8 @@
         "syntax": "file_filter <string>",
         "description": "The filter to use when recursively scanning the pk_tables_path directory for Pk table files. Any file whose name matches the filter will be loaded. Wild-carding using ‘*’ is suggested (e.g. *.*; *.pk*) and the filter may be surrounded by quotation marks if it contains white space characters."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_EOIR_SENSOR",
@@ -33618,7 +33900,8 @@
         "syntax": "internal_loss <db-ratio>",
         "description": "Defines an additional constant loss that can be applied to the computation."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_EP_TECHNIQUE",
@@ -33675,7 +33958,8 @@
         "syntax": "mitigated_technique_classes <ea-technique-class-name> … <ea-technique-class-name> … end_mitigated_technique_classes",
         "description": "Defines the EA technique classes this EP technique can attempt to mitigate."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_ESM_SENSOR",
@@ -34072,7 +34356,8 @@
         "syntax": "ranging_time_track_quality <quality-value>",
         "description": "If the ranging time is used to generate a track with range information, this parameter controls the track quality once range is valid. The quality-value must be non-negative."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_EXCHANGE_PROCESSOR",
@@ -34429,7 +34714,8 @@
         "syntax": "WsfPlatform ClosestPossibleProvider(string)",
         "description": "Returns a reference to the platform which is the closest known provider of the capability represented by the supplied commodity Item name. Returned object should be checked for IsValid() before use."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_EXISTING_PLATFORM_GRID",
@@ -34486,7 +34772,8 @@
         "syntax": "platform <platform-name> <device-name>",
         "description": "Specify that the platform with the given <platform-name> should be added the grid and use device with the given <device-name> for the coverage computation. This command can be used for as many platforms as desired."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_EXOATMOSPHERIC_LETHALITY",
@@ -34513,7 +34800,8 @@
         "syntax": "impact_velocity_and_pk <speed-value> <pk-value>",
         "description": "Specify an entry in the Pk versus impact velocity interpolation table. Any number of entries may be made. Impact velocity must be greater than zero."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_EXPLICIT_WEAPON",
@@ -34600,7 +34888,8 @@
         "syntax": "on_create",
         "description": "Defines a script that is called immediately after the weapon platform is created but before it is actually inserted into the simulation. This script is typically used to modify attributes of the weapon platform that must change before the weapon is added to the simulation. ‘aWeapon’ is a reference to the newly created weapon platform and ‘aTarget’ is a reference to the target track object."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_EXPLICIT_WEAPON_EFFECT",
@@ -34617,7 +34906,8 @@
         "syntax": "maximum_radius <length-value>",
         "description": "The maximum blast radius within which this weapon has some effect."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_EXPLICIT_WEAPON_EFFECTS",
@@ -34634,7 +34924,8 @@
         "syntax": "maximum_radius <length-value>",
         "description": "Defines the maximum slant range (distance from the detonation/impact point to the target) at which this weapon could possibly have an effect. Note that this is only used for limiting the number of platforms that must be checked for possible damage, effectively eliminated ‘far-away’ objects from consideration."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_FALSE_TARGET_EFFECT",
@@ -34731,7 +35022,8 @@
         "syntax": "system_type_data <system-type-name> … end_system_type_data",
         "description": "Input block to provide the system type (e.g., SENSOR-TYPE, JAMMER-TYPE) specific data necessary to implement this technique for a given system type. Default data can be set up for system types not defined using the “default” string as the system type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_FIRES_LAUNCH_COMPUTER",
@@ -34798,7 +35090,8 @@
         "syntax": "time_of_flight_values <time-of-flight-value-1> <time-of-flight-value-2> … <time-of-flight-value-n> end_time_of_flight_values",
         "description": "Define a set of characteristic trajectory values for time of flight."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_FIRES_MOVER",
@@ -34895,7 +35188,8 @@
         "syntax": "maximum_ordiante <length-value>",
         "description": "Specifies the maximum height the munition will attain in its trajectory."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_FORMATION_FLYER",
@@ -35122,7 +35416,8 @@
         "syntax": "initialize_at_offset",
         "description": "The follower platform is initially placed at the supplied offset from the lead platform instead of the initial position (latitude, longitude, altitude)."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_FT_EFFECT",
@@ -35179,7 +35474,8 @@
         "syntax": "system_type_data <system-type-name> … end_system_type_data",
         "description": "Input block to provide the system type (e.g., SENSOR-TYPE, JAMMER-TYPE) specific data necessary to implement this technique for a given system type. Default data can be set up for system types not defined using the “default” string as the system type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_FUEL",
@@ -35196,7 +35492,8 @@
         "syntax": "consumption_rate <mass-flow-value>",
         "description": "Defines the fixed rate at which fuel will be consumed."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_FUSION_CENTER",
@@ -35273,7 +35570,8 @@
         "syntax": "consistency_constrained",
         "description": "Defines whether a track must must be detected by all radar sites in order to be fused by the fusion center. False means the track needs only to appear on one radar site."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_GEOMETRIC_SENSOR",
@@ -35370,7 +35668,8 @@
         "syntax": "maximum_range_rate <speed-value>",
         "description": "This sensor will not detect targets with a range rate greater than this value."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_GRADUATED_LETHALITY",
@@ -35447,7 +35746,8 @@
         "syntax": "pk_and_radius <pk-value> <length-value>",
         "description": "Specify an entry in the current Pk vs. miss distance table."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_GROUND_MOVER",
@@ -35834,7 +36134,8 @@
         "syntax": "path_compute_timestep <time-value>",
         "description": "Waypoint movers precompute movement along paths. This behavior forces turns to have a constant radius. If path_compute_timestep is specified as a positive value, the turn rate will update on that interval if any changes in speed occur."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_GUIDANCE_COMPUTER",
@@ -36311,7 +36612,8 @@
         "syntax": "next_phase <phase-name> [if | when] <event>",
         "description": "The next_phase command defines a condition under which a phase transition occurs. A phase block may have multiple next_phase commands to define a number of conditions that might trigger a phase change. The next_phase commands are evaluated on each guidance update and are evaluated in the order specified."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_GUIDED_MOVER",
@@ -36788,7 +37090,8 @@
         "syntax": "on_stage_separation",
         "description": "Process the separation of stage ‘aStage’."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_HEL_LETHALITY",
@@ -36845,7 +37148,8 @@
         "syntax": "manage_kills <boolean-value>",
         "description": "Tells the simulation whether it can kill and remove platforms. For an API-based simulation, this should be disabled, otherwise, it should be enabled."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_HYBRID_MOVER",
@@ -36912,7 +37216,8 @@
         "syntax": "auto_switch",
         "description": "If the current mover is the follower and the lead no longer exists then switch back to the waypoint mover and return to the given route entering at the closest point."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_IMAGE_PROCESSOR",
@@ -37029,7 +37334,8 @@
         "syntax": "target_recognition <boolean-value>",
         "description": "Enable this processor’s target recognition capabilities for target detection, classification, and identification."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_IMPLICIT_WEAPON",
@@ -37056,7 +37362,8 @@
         "syntax": "quantity <real-reference>",
         "description": "This command is identical to quantity; however, the default value for implicit weapons is different."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_INFRARED_SIGNATURE",
@@ -37103,7 +37410,8 @@
         "syntax": "band [ short | medium | long | very_long | default ]",
         "description": "Indicates that the following table will be used when the sensing infrared sensor is operating with the specified band. Where:"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_INTEGRATING_PROPAGATOR",
@@ -37140,7 +37448,8 @@
         "syntax": "term … end_term",
         "description": "Specify a term to be added into the orbital dynamics. Each term will have its own set of input commands to control its contribution to the dynamics."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_INTEGRATING_SPACE_MOVER",
@@ -37587,7 +37896,8 @@
         "syntax": "mission_sequence … end_mission_sequence",
         "description": "Specify a sequence of pre-determined orbital mission events. The first mission event specified is executed first, then the second, etc. An optional constraint can be specified to delay execution of the sequence; otherwise the mission event will begin executing at the creation time of the platform."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_INTERSECT_PROCESSOR",
@@ -37614,7 +37924,8 @@
         "syntax": "intersect_mesh <string-value>",
         "description": "Define the file for the intersection mesh associated with this processor."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_IRST_SENSOR",
@@ -37731,7 +38042,8 @@
         "syntax": "internal_loss <db-ratio>",
         "description": "Defines an additional constant loss that can be applied to the computation."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_J2_PERTURBATION_PROPAGATOR",
@@ -37968,7 +38280,8 @@
         "syntax": "polar_offset_angles <angle-value> <angle-value>",
         "description": "Specify the central_body’s polar offset angles ( and , respectively) of the Celestial Intermediate Pole (CIP) with respect to the WCS (ITRS) coordinate system. Providing these values (of the order of tenths of arc-seconds) enables very precise conversions between ECI and WCS coordinates."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_JACCHIA_ROBERTS_ATMOSPHERE",
@@ -38025,7 +38338,8 @@
         "syntax": "geomagnetic_index <real-value>",
         "description": "Set the geomagnetic activity, . The provided value must be in the range [0, 9]."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_JTIDS_TERMINAL",
@@ -38212,7 +38526,8 @@
         "syntax": "transmit_slot_block <set>-<index>-<rrn>",
         "description": "Creates a transmit slot block with the specified set (e.g., A, B, C), slot index, and recurrence rate number (RRN). The recurrence rate number must be in the range [1, 15]."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_KALMAN_FILTER",
@@ -38279,7 +38594,8 @@
         "syntax": "elevation_measurement_sigma <length-value>",
         "description": "Defines the standard deviation that is applied to the measurement’s elevation prior to filtering."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_KALMAN_FILTER_2D_RB",
@@ -38326,7 +38642,8 @@
         "syntax": "process_noise_sigmas_XY <X-value> <Y-value>",
         "description": "Defines the filter’s noise standard deviation for the two directions. The values must be entered in meters."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_KEPLERIAN_PROPAGATOR",
@@ -38563,7 +38880,8 @@
         "syntax": "polar_offset_angles <angle-value> <angle-value>",
         "description": "Specify the central_body’s polar offset angles ( and , respectively) of the Celestial Intermediate Pole (CIP) with respect to the WCS (ITRS) coordinate system. Providing these values (of the order of tenths of arc-seconds) enables very precise conversions between ECI and WCS coordinates."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_KINEMATIC_MOVER",
@@ -38720,7 +39038,8 @@
         "syntax": "use_route <route-name>",
         "description": "Supplies the name of the route to follow. The route is assumed to be a predefined absolute route."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_LADAR_SENSOR",
@@ -38942,7 +39261,8 @@
         "syntax": "detector_size <length-value>",
         "description": "Specifies the length of one side of the physical detector. It is assumed the detector is square."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_LASER_TRANSCEIVER",
@@ -39349,7 +39669,8 @@
         "syntax": "surface_dark_current <current-value>",
         "description": "These are optional commands used to specify the non-amplified, or “surface” dark count term in background noise component as described in the Computation of Noise section below). One or the other may be specified depending on preference."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_LASER_WEAPON",
@@ -39446,7 +39767,8 @@
         "syntax": "minimum_total_firing_time <time-value>",
         "description": "When in a cooldown cycle, the weapon will not be available until this much firing time has been restored to the system."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_LAUNCH_COMPUTER",
@@ -39593,7 +39915,8 @@
         "syntax": "minimum_terminal_speed <speed-value>",
         "description": "The slowest speed at which the SAM still exhibits adequate terminal maneuver capability."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_LINK16_COMPUTER",
@@ -40010,7 +40333,8 @@
         "syntax": "script void on_message_X_Y(WsfTadilJX_YI aMessage) … end_script",
         "description": "Defines a script which is executed whenever a specific message type is received. X and Y are replaced with the Tadil-J message numbers to be processed. This example would print all received air-PPLI messages, and send out a PPLI message."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_MATH_3D_MOVER",
@@ -40157,7 +40481,8 @@
         "syntax": "use_route <route-name>",
         "description": "Supplies the name of the route to follow. The route is assumed to be a predefined absolute route."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_MESSAGE_PROCESSOR",
@@ -40339,7 +40664,8 @@
         "syntax": "processor <platform-part-name>",
         "description": "Specify that messages that originate from this object are to be routed to the specified platform part object on the same platform. This command may be specified multiple times to route the message to multiple recipients."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_MOBILITY_AND_FIREPOWER_LETHALITY",
@@ -40506,7 +40832,8 @@
         "syntax": "update_interval <TimeValue>",
         "description": "Specifies the interval between countermeasure state evaluations, which computes at what time they may be considered as “effective”. Default = 1.0 sec."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "multiresolution_multirun_table",
@@ -40558,7 +40885,8 @@
         "syntax": "loop_after_table_end",
         "description": "Tells the simulation whether to loop through the entries in fidelity_table, or to fall back on the entries in default_fidelity when the number of runs exceeds the number of rows in fidelity_table. If enabled, this allows users to do multiple runs of each row, which may be desired if the users want to also use randomized variables for other aspects of the simulation."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_N_ASSET_COVERAGE_MOE",
@@ -40585,7 +40913,8 @@
         "syntax": "output <output_type> … end_output",
         "description": "Specify a form of output to produce for a measure of effectiveness. The allowed values for <output_type> are:"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_NORAD_PROPAGATOR",
@@ -40822,7 +41151,8 @@
         "syntax": "polar_offset_angles <angle-value> <angle-value>",
         "description": "Specify the central_body’s polar offset angles ( and , respectively) of the Celestial Intermediate Pole (CIP) with respect to the WCS (ITRS) coordinate system. Providing these values (of the order of tenths of arc-seconds) enables very precise conversions between ECI and WCS coordinates."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_NORAD_SPACE_MOVER",
@@ -41274,7 +41604,8 @@
         "syntax": "mission_sequence … end_mission_sequence",
         "description": "Specify a sequence of pre-determined orbital mission events. The first mission event specified is executed first, then the second, etc. An optional constraint can be specified to delay execution of the sequence; otherwise the mission event will begin executing at the creation time of the platform."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_NUMBER_OF_ACCESSES_MOE",
@@ -41301,7 +41632,8 @@
         "syntax": "output <output_type> … end_output",
         "description": "Specify a form of output to produce for a measure of effectiveness. The allowed values for <output_type> are:"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_NUMBER_OF_GAPS_MOE",
@@ -41328,7 +41660,8 @@
         "syntax": "output <output_type> … end_output",
         "description": "Specify a form of output to produce for a measure of effectiveness. The allowed values for <output_type> are:"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_NX_SLB_EFFECT",
@@ -41345,7 +41678,8 @@
         "syntax": "target_blanking_effect <target-blanking-type> … end_target_blanking_effect",
         "description": "Input block to provide the saturation effect and its associated input commands. See also the base target blanking effect for more types."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_OFFSET_MOVER",
@@ -41412,7 +41746,8 @@
         "syntax": "orphan_action [ stop | extrapolate | remove]",
         "description": "Defines the action that should be performed if the reference platform is removed from the simulation. The values are as follows"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_OLD_GUIDANCE_COMPUTER",
@@ -41629,7 +41964,8 @@
         "syntax": "nav_gain_slope_2",
         "description": "Used to compute the pitchover gain when the doppler shift is greater than or equal to the specified frequency_cutoff. The pitchover gain is computed as follows, unless limited by the max_nav_gain: Pitchover_gain = nav_gain_slope_2 * (doppler_shift - frequency_cutoff) + 0.5."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_OLD_GUIDED_MOVER",
@@ -41826,7 +42162,8 @@
         "syntax": "thrust_vectoring_time_limits <time-value min-time-value> <time-value max-time-value>",
         "description": "Specifies the time window after stage ignition in which thrust vectoring may be employed. This is applicable only if thrust_vectoring_angle_limit is greater than zero."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_OPTICAL_ATTENUATION",
@@ -42013,7 +42350,8 @@
         "syntax": "code_output <filename>",
         "description": "Specifies the name of the file that will contain the converted results in a form that is useful for compiling in as one of the embedded models available by internal_table."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_OPTICAL_REFLECTIVITY",
@@ -42050,7 +42388,8 @@
         "syntax": "state [ <state-name> | default ]",
         "description": "Indicates that the following table definition will be used when the platform is in the signature state <state-name>. If default is specified then the subsequent table will be used if the platform is in a signature state that does not match any of the states defined in the signature."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_OPTICAL_SENSOR",
@@ -42217,7 +42556,8 @@
         "syntax": "ocular_integration_level <value> <angle-units>",
         "description": "Specifies the sensor’s ocular integration level."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_OPTICAL_SIGNATURE",
@@ -42254,7 +42594,8 @@
         "syntax": "state [ <state-name> | default ]",
         "description": "Indicates that the following table definition will be used when the platform is in the signature state <state-name>. If default is specified then the subsequent table will be used if the platform is in a signature state that does not match any of the states defined in the signature."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_ORBIT_DETERMINATION_FILTER",
@@ -42321,7 +42662,8 @@
         "syntax": "debug",
         "description": "When specified, writes filtered measurements data and filter performance data to the file KFILT_DEBUG.out."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_ORBITAL_CONJUNCTION_PROCESSOR",
@@ -42428,7 +42770,8 @@
         "syntax": "on_conjunction_predicted",
         "description": "This is an optional script that can be defined that allows one to react to the discovery of a possible conjunction. If defined, this script is only called if conjunctions are discovered, so the input Array will always have at least one entry."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_ORBITAL_LAUNCH_COMPUTER",
@@ -42445,7 +42788,8 @@
         "syntax": "leo_data <leo_data_file_name>",
         "description": "Specify the file name to use when computing a low-Earth orbit (LEO) launch solution. This file is created using the ORBITAL_LAUNCH_COMPUTER_GENERATOR command of the weapon_tools utility."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_OTH_RADAR_SENSOR",
@@ -42482,7 +42826,8 @@
         "syntax": "ionosphere_characteristics … end_ionosphere_characteristics",
         "description": "This command allows the initialization of data that will control if and where an ionospheric bounce can occur."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_P6DOF_EXPLICIT_WEAPON",
@@ -42499,7 +42844,8 @@
         "syntax": "add_subobject <string>",
         "description": "Specifies the base name of a subobject on the WSF_P6DOF_MOVER that will be launched/fired. Each individual subobject supported by the weapon (launcher) requires its own add_subobject command line. Each subobject must have a unique name. The subobject weapons will be launched in the order they are listed. Note that the launched platform type associated with the subobject is specified using the definition contained in the P6DOF platform mappings."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_P6DOF_FUEL",
@@ -42606,7 +42952,8 @@
         "syntax": "on_refuel … <script-definition> … end_on_refuel",
         "description": "Defines a script to be executed when a refueling operation has been completed."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_P6DOF_GUIDANCE_COMPUTER",
@@ -42963,7 +43310,8 @@
         "syntax": "allow_route_following <boolean-value>",
         "description": "If true, the computer will follow a route if it has been provided to the associated mover. If the mover does not have a route then this command has no effect. Conventional target point selection will resume at the end of the route."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_P6DOF_MOVER",
@@ -43320,7 +43668,8 @@
         "syntax": "use_route <route-name>",
         "description": "Supplies the name of the route to follow. The route is assumed to be a predefined absolute route."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_PARABOLIC_MOVER",
@@ -43367,7 +43716,8 @@
         "syntax": "tof_and_impact_lat_lon <time-value> <latitude-value> <longitude-value>",
         "description": "The desired final conditions: time of flight and impact latitude, longitude. Altitude is determined by finding the terrain elevation at the given latitude and longitude."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_PASSIVE_SENSOR",
@@ -43764,7 +44114,8 @@
         "syntax": "ranging_time_track_quality <quality-value>",
         "description": "If the ranging time is used to generate a track with range information, this parameter controls the track quality once range is valid. The quality-value must be non-negative."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_PERCEPTION_PROCESSOR",
@@ -44081,7 +44432,8 @@
         "syntax": "draw_sensor_outline <boolean-value>",
         "description": "Optional values that indicate WsfDraw commands should be issued for the heat map grid lines, the heat/cold values of the heat cells, or sensor coverage outlines respectively. These commands can be used to visualize the information represented by the heat map but leaving them off will speed up simulation runs."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_PERFECT_TRACKER",
@@ -44098,7 +44450,8 @@
         "syntax": "update_interval <time-value>",
         "description": "Specifies how often the processor should update the track."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_PIECEWISE_EXPONENTIAL_ATMOSPHERE",
@@ -44125,7 +44478,8 @@
         "syntax": "polar_offset_angles <angle-value> <angle-value>",
         "description": "Specify the central_body’s polar offset angles ( and , respectively) of the Celestial Intermediate Pole (CIP) with respect to the WCS (ITRS) coordinate system. Providing these values (of the order of tenths of arc-seconds) enables very highly accurate conversions between ECI and WCS coordinates."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_POINT_MASS_SIX_DOF_MOVER",
@@ -44142,7 +44496,8 @@
         "syntax": "vehicle_type <string>",
         "description": "This defines the type of object used by the mover. The point-mass vehicle_type is defined in a six_dof_object_types block and must be defined before being referenced."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_POL_MOD_EFFECT",
@@ -44169,7 +44524,8 @@
         "syntax": "system_type_data <system-type-name> … end_system_type_data",
         "description": "Input block to provide the system type (e.g., SENSOR-TYPE, JAMMER-TYPE) specific data necessary to implement this technique for a given system type. Default data can be set up for system types not defined using the “default” string as the system type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_POWER_EFFECT",
@@ -44266,7 +44622,8 @@
         "syntax": "system_type_data <system-type-name> … end_system_type_data",
         "description": "Input block to provide the system type (e.g., SENSOR-TYPE, JAMMER-TYPE) specific data necessary to implement this technique for a given system type. Default data can be set up for system types not defined using the “default” string as the system type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_PULSE_EFFECT",
@@ -44283,7 +44640,8 @@
         "syntax": "jamming_pulse_density <value>",
         "description": "Specifies the pulse density of the jamming signal in range [0,1] to use for this radar type. This input is used only for Electronic Attack based effects."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_PULSE_SUPPRESS_EFFECT",
@@ -44310,7 +44668,8 @@
         "syntax": "allow <suppression-type> <lower-suppression-value> <upper-suppression-value>",
         "description": "Specifies the rejected or allowed suppression-type and required input variables that are dependent upon the suppression-type specified."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_QUANTUM_TASKER_PROCESSOR",
@@ -44517,7 +44876,8 @@
         "syntax": "number_of_servers [ <integer-reference> | infinite ]",
         "description": "Only used if time_to_recognize_messages is defined and greater than zero. Specifies the maximum number of messages that can be ‘in process’ at any given instant of time. If a new message is received and all the servers are busy, the message will be queued according to the queuing_method"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_RADAR_SENSOR",
@@ -45124,7 +45484,8 @@
         "syntax": "range_delta <length-value>",
         "description": "Specifies the range delta wrt to the current target cue or request for which the target may be reacquired. Value must be >= 0.0."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_RADIO_TRANSCEIVER",
@@ -45171,7 +45532,8 @@
         "syntax": "bit_error_rate_ebno_table <absolute-units><ratio-units><BER-value 1> <Eb/No-value 1> … end_bit_error_rate_ebno_table",
         "description": "Optional table that defines the Energy per Bit to the Spectral Noise Density (Eb/No) vs. Bit Error Rate (BER). Used in conjunction with the bit_error_probability and error_correction to calculate the data transfer rate of the radio. When using this table Data Rate = SNR* Error Correction * ( Bandwidth / Eb/No ). The Bit-Error-Rate-EbNo-Table will be interpolated. If a table is specified, the table transfer rate values will override the value used specified with the transfer_rate command."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_RADIUS_EFFECT",
@@ -45208,7 +45570,8 @@
         "syntax": "system_type_data <system-type-name> … end_system_type_data",
         "description": "Input block to provide the system type (e.g., SENSOR-TYPE, JAMMER-TYPE) specific data necessary to implement this technique for a given system type. Default data can be set up for system types not defined using the “default” string as the system type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_REPEATER_EFFECT",
@@ -45305,7 +45668,8 @@
         "syntax": "system_type_data <system-type-name> … end_system_type_data",
         "description": "Input block to provide the system type (e.g., SENSOR-TYPE, JAMMER-TYPE) specific data necessary to implement this technique for a given system type. Default data can be set up for system types not defined using the “default” string as the system type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_REVISIT_TIME_MOE",
@@ -45332,7 +45696,8 @@
         "syntax": "output <output_type> … end_output",
         "description": "Specify a form of output to produce for a measure of effectiveness. The allowed values for <output_type> are:"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_RF_JAMMER",
@@ -45509,7 +45874,8 @@
         "syntax": "spot_power_distribution [ average | constant ]",
         "description": "The spot power distribution across the jammer spots on all beams. If average is selected, the total power is averaged across the active spots on each beam."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_RIGID_BODY_SIX_DOF_MOVER",
@@ -45566,7 +45932,8 @@
         "syntax": "taxi_mode_enabled <boolean-value>",
         "description": "This command set whether the autopilot should be in taxi mode when the scenario begins. This should be used only be used when the platform is on ground."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_RIPR_PROCESSOR",
@@ -45703,7 +46070,8 @@
         "syntax": "query_bid",
         "description": "This input block is obsolete and now deprecated. See the “query_bid_type” script block definition above."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_ROAD_MOVER",
@@ -45820,7 +46188,8 @@
         "syntax": "update_time_tolerance <time-value>",
         "description": "When a position update is requested by the simulation, if the time since the previous update is less than or equal to this value then the mover will ignore the update."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_ROTORCRAFT_MOVER",
@@ -46112,7 +46481,8 @@
         "syntax": "input_threshold <floating_point_value>",
         "description": "Comparison value to determine whether to apply integral summing of the input error sample. While the input value differs more than <input_threshold> from the target value no input integration is performed. Once the input threshold is near the target value, a continuous integration is performed to discern and react to an input bias. If so, integral_gain is applied to the bias to remove it over time."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_RPJ_EFFECT",
@@ -46159,7 +46529,8 @@
         "syntax": "system_type_data <system-type-name> … end_system_type_data",
         "description": "Input block to provide the system type (e.g., SENSOR-TYPE, JAMMER-TYPE) specific data necessary to implement this technique for a given system type. Default data can be set up for system types not defined using the “default” string as the system type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SA_PROCESSOR",
@@ -47486,7 +47857,8 @@
         "syntax": "ProjectPositionSplitS (script)",
         "description": "This is an optional script used to estimate a future location for an entity, assuming it carries out a g-limited split-S maneuver. This should return a valid WsfGeoPoint. This optional script will override the default calculation."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SAM_LAUNCH_COMPUTER",
@@ -47553,7 +47925,8 @@
         "syntax": "interpolation_test … end_interpolation_test",
         "description": "For debug purposes only, and optional. Inside this block one may place one or more ‘lateral_offset <distance-value>’, ‘altitude <distance-value>’, ‘target_speed <speed_value>’ and ‘ground_range <distance_value>’ specifications. Each time the keyword ‘test’ appears, the most recent value of (offset, altitude, speed, range) is saved off as a test point, and stored into a test point array. After the launch computer is initialized, each of these test points will be evaluated, and the corresponding interpolated time-of-flight value will be printed to the screen. The example given below saves off three points for testing."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SAR_SENSOR",
@@ -47890,7 +48263,8 @@
         "syntax": "atmospheric_refraction_residual <unitless>",
         "description": "Needs description."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SCRIPT_PROCESSOR",
@@ -47987,7 +48361,8 @@
         "syntax": "on_message_create",
         "description": "This is an optional script that can be defined, which allows one to modify a message internally created by a processor prior to it being sent. This is typically used to override the default priority of a message using WsfMessage.SetPriority"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SENSOR_COVERAGE",
@@ -48194,7 +48569,8 @@
         "syntax": "device_type <device-type> <constraint-type> <time-value> [<time-value>]",
         "description": "Specify that access intervals involving devices with the given <device-type> will be filtered according to the given <constraint-type>."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SENSORS_MANAGER",
@@ -48276,7 +48652,8 @@
         "syntax": "turn_off_ttr_if_no_tracks <boolean-value>",
         "description": "When true, the TTR is turned off when the radar has no targets assigned."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SENSORS_MANAGER_FOV",
@@ -48313,7 +48690,8 @@
         "syntax": "unitary FINE_SLEW_RATE_AZIMUTH = <angular-speed-value>",
         "description": "The speed at which the TTR will slew in azimuth when it has targets in its field of view."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SIMPLE_COVERAGE_MOE",
@@ -48330,7 +48708,8 @@
         "syntax": "output <output_type> … end_output",
         "description": "Specify a form of output to produce for a measure of effectiveness. The allowed values for <output_type> are:"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SIMPLE_FT_EFFECT",
@@ -48382,7 +48761,8 @@
         "syntax": "system_type_data <system-type-name> … end_system_type_data",
         "description": "Input block to provide the system type (e.g., SENSOR-TYPE, JAMMER-TYPE) specific data necessary to implement this technique for a given system type. Default data can be set up for system types not defined using the “default” string as the system type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SIX_DOF_EXPLICIT_WEAPON",
@@ -48399,7 +48779,8 @@
         "syntax": "add_subobject <string>",
         "description": "Specifies the base name of a subobject on the WSF_SIX_DOF_MOVER that will be launched/fired. Each individual subobject supported by the weapon (launcher) requires its own add_subobject command line. Each subobject must have a unique name. The subobject weapons will be launched in the order they are listed. Note that the launched platform type associated with the subobject is specified using the definition contained in the SixDOF platform mappings."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SIX_DOF_FUEL",
@@ -48506,7 +48887,8 @@
         "syntax": "on_refuel … <script-definition> … end_on_refuel",
         "description": "Defines a script to be executed when a refueling operation has been completed."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SIX_DOF_GUIDANCE_COMPUTER",
@@ -48523,7 +48905,8 @@
         "syntax": "commanded_throttle <real-value>",
         "description": "Specifies a throttle factor in the range [0..1] that overrides and throttle specification in the mover."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SIX_DOF_MOVER",
@@ -48830,7 +49213,8 @@
         "syntax": "use_route <route-name>",
         "description": "Supplies the name of the route to follow. The route is assumed to be a predefined absolute route."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SLB_EFFECT",
@@ -48927,7 +49311,8 @@
         "syntax": "probabilities … end_probabilities",
         "description": ""
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SLC_DEGRADE_EFFECT",
@@ -48954,7 +49339,8 @@
         "syntax": "system_type_data <system-type-name> … end_system_type_data",
         "description": "input block to provide the system type (e.g., sensor-type, jammer-type) specific data necessary to implement this technique for a given system type. Default data can be set up for system types not defined using the “default” string as the system type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SLC_EFFECT",
@@ -49101,7 +49487,8 @@
         "syntax": "saturation <db-ratio>",
         "description": "This command allows the definition of saturation cancellation ratios that are nondependent or jammer-to-noise-dependent"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SPACE_MOVER",
@@ -49633,7 +50020,8 @@
         "syntax": "mission_sequence … end_mission_sequence",
         "description": "Specify a sequence of pre-determined orbital mission events. The first mission event specified is executed first, then the second, etc. An optional constraint can be specified to delay execution of the sequence; otherwise the mission event will begin executing at the creation time of the platform."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SPACE_OPTICAL_SIGNATURE",
@@ -49855,7 +50243,8 @@
         "syntax": "radius <length-value>",
         "description": "Defines the radius of the sphere."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SPHERICAL_LETHALITY",
@@ -49932,7 +50321,8 @@
         "syntax": "pk_table … end_pk_table",
         "description": "Following is an example input to specify a PkTable while using the use_pk_table option. The pk_table…end_pk_table block must occur either in global context (as all tables are read in by the PkTableManager, and supplied by reference to the weapon), or nested inside of a weapon_effects block. The weapon must request use of the table by employing the use_pk_table option. Each of the one or more tables listed within the pk_table block is tied to a target_type. The independent variables for the table lookup, if not a constant Pk value, will include: target azimuth, target elevation, weapon speed, and target speed. The first target_type listed must be DEFAULT, which is used if there is no more specific match provided below the DEFAULT option. PkTables may be specified as inline_tables, and the “inline_table” keyword is always followed by two integers, the (n) number of azimuths (beginning with zero, as the pk is assumed to be symmetric about the weapon’s XZ plane), and the (m) number of elevations (not assumed symmetric) in increasing order. Then the inline table will contain n X m values of Pk for the weapon to interpolate as the Pk threshold. The kill determination will be 1.0 (total kill) if the uniform random draw is less than the threshold value."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_STATE_MACHINE",
@@ -49969,7 +50359,8 @@
         "syntax": "state <state-name>",
         "description": "Defines a state in a state machine with the name <state-name>. Besides transition conditions, notice a state can have its own behavior_tree inside."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_STRAIGHT_LINE_MOVER",
@@ -50046,7 +50437,8 @@
         "syntax": "guide_to_truth <boolean-value>",
         "description": "Specifies if the perceived target location (as defined by the current target track) or the truth target location should be used in the guidance computations."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SUBSURFACE_MOVER",
@@ -50433,7 +50825,8 @@
         "syntax": "path_compute_timestep <time-value>",
         "description": "Waypoint movers precompute movement along paths. This behavior forces turns to have a constant radius. If path_compute_timestep is specified as a positive value, the turn rate will update on that interval if any changes in speed occur."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SUBSURFACE_RADIO_TRANSCEIVER",
@@ -50500,7 +50893,8 @@
         "syntax": "water_attenuation_factor <dbratio-value>/<length-value>",
         "description": "Specifies a factor by which signals are attenuated as they pass through the water part of the transmission path. The format for data is a number followed by a dB ratio value, followed by a backslash, and then followed by a <length-value>."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SURFACE_MOVER",
@@ -50887,7 +51281,8 @@
         "syntax": "path_compute_timestep <time-value>",
         "description": "Waypoint movers precompute movement along paths. This behavior forces turns to have a constant radius. If path_compute_timestep is specified as a positive value, the turn rate will update on that interval if any changes in speed occur."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_SURFACE_WAVE_RADAR_SENSOR",
@@ -50984,7 +51379,8 @@
         "syntax": "noise_environment [ business | residential | rural | quiet_rural ]",
         "description": "Defines the man-made noise environment that the sensor operates in."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_TABULAR_ATTENUATION",
@@ -51036,7 +51432,8 @@
         "syntax": "output <filename>",
         "description": "Specifies the name of the file to which the converted results are to be written. The file can be used at the argument for the attenuation command (See the example at the start of the section.)"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_TABULAR_RATE_FUEL",
@@ -51133,7 +51530,8 @@
         "syntax": "rates units <mass-flow-units> <mass_flow_1> … <mass_flow_n> end_rates",
         "description": "This specifies the dependent variable values corresponding to the 1-D, 2-D, or 3-D independent variables that precede this keyword. The number of values supplied must match the product of the number of independent values in each supplied dimension (i.e. a table of 6 speeds and 4 altitudes must contain 24 fuel flow values)."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_TABULATED_LETHALITY",
@@ -51155,7 +51553,8 @@
         "syntax": "pk_at_cep <pk-value> <length-value>",
         "description": "Specify an entry in the Pk vs. CEP table. Multiple points may be provided for each target platform type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_TANKED_FUEL",
@@ -51232,7 +51631,8 @@
         "syntax": "supply_point [ left | center | right ] [ boom | hose ] ‘<mass-flow-rate>’",
         "description": "Specify the maximum flow rate for a fuel supply point station. This value may be reduced if the receiver’s maximum receive rate is less. This command should be repeated for each available refueling station."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_TASK_PROCESSOR",
@@ -51579,7 +51979,8 @@
         "syntax": "on_track_drop",
         "description": "This is invoked whenever a processor is informed of a track drop by the track manager. The implicitly defined script variable TRACK (of type WsfLocalTrack) represents the last known state of the track that is being dropped."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_TBM_MOVER",
@@ -51776,7 +52177,8 @@
         "syntax": "range <distance value> range_error <distance value> azimuth_error <angle value>",
         "description": "Expected range and bearing impact errors at a given nominal target range. (Mutually exclusive of the [range, cep] pairs above.) At least two ranges must be specified."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_THREAT_PROCESSOR",
@@ -51853,7 +52255,8 @@
         "syntax": "ignore_without_velocity <boolean>",
         "description": "If set to true, the threat processor ignores tracks that do not have velocity data; such tracks are always non-threatening."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_TIME_AVERAGE_GAP_MOE",
@@ -51870,7 +52273,8 @@
         "syntax": "output <output_type> … end_output",
         "description": "Specify a form of output to produce for a measure of effectiveness. The allowed values for <output_type> are:"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_TOWED_MOVER",
@@ -51977,7 +52381,8 @@
         "syntax": "elevation_relative_to_lead <angle-value>",
         "description": "Towed asset elevation with respect to the lead platform. Value must be in range [-90 deg, 90 deg], with positive elevation corresponding to -Z direction of the lead platform’s entity coordinate system."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_TRACK_EFFECT",
@@ -52244,7 +52649,8 @@
         "syntax": "system_type_data <system-type-name> … end_system_type_data",
         "description": "Input block to provide the system type (e.g., SENSOR-TYPE, JAMMER-TYPE) specific data necessary to implement this technique for a given system type. Default data can be set up for system types not defined using the “default” string as the system type."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_TRACK_PROCESSOR",
@@ -52471,7 +52877,8 @@
         "syntax": "inbound_filter … end_inbound_filter",
         "description": "By default, the processor will attempt to submit all received reports to the track manager for correlation and fusion. There are situations, however, where a given track processor may not desire this activity. This block allows control over what is assimilated."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_TRACK_STATE_CONTROLLER",
@@ -52568,7 +52975,8 @@
         "syntax": "void on_track_drop … end_script",
         "description": "This is invoked whenever a processor is informed of a track drop by the track manager. The implicitly defined script variable TRACK (of type WsfLocalTrack) represents the last known state of the track that is being dropped."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_TRIMSIM_PROCESSOR",
@@ -52635,7 +53043,8 @@
         "syntax": "message_priority <integer-priority>",
         "description": "Specify the priority assigned to the track messages that are created from the image."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_TSPI_MOVER",
@@ -52792,7 +53201,8 @@
         "syntax": "relocate_and_rotate",
         "description": "The relocate_and_rotate … end_relocate_and_rotate block is a means to move a trajectory from one locale to another, including a change in orientation. Two keywords will move a TSPI trajectory from one (latitude, longitude) to another (latitude, longitude), either: A) initial_endpoint_anchor <lat> <lon>, or B) terminal_endpoint_anchor <lat> <lon>. After the path is relocated, it can them be re-oriented. To do so, use either A) great_circle_heading_at_anchor_point <angle-value>, or B) align_to_great_circle_through <lat> <lon>. In the later case, the <lat> <lon> value must be different than the anchor point. Note that due to the spherical geometry calculations used, and the ellipsoidal earth, the path translation process will be approximate. Also note that the initial or terminal heading value to be specified is along a great circle arc between initial and final trajectory points, not necessarily the true heading being flown at the beginning or end of trajectory."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_UNCLASS_BM",
@@ -53024,7 +53434,8 @@
         "syntax": "workload <integer>",
         "description": "The scoring factor applied to weapon work load in weapon score calculation. An integer value in the range 0 to 10."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_UPLINK_PROCESSOR",
@@ -53051,7 +53462,8 @@
         "syntax": "weapon_uplink_path <sensor-name> <comm-name>",
         "description": "If a weapon uplink path is specified, then the processor will support uplinks by sending track updates over the designated comm to the fired weapon platform using tracks from the designated sensor. Uplinks can be stopped and started from script, see WsfUplinkProcessor."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_VARIABLE_RATE_FUEL",
@@ -53098,7 +53510,8 @@
         "syntax": "speed <length-value> rate <mass-flow-value>",
         "description": "Specifies the speed that the listed consumption rate is valid for. The speed entries must be in increasing numerical order. The consumption rate will be computed using a linear interpolation on the current altitude and speed."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_WEAPON_FUSE",
@@ -53385,7 +53798,8 @@
         "syntax": "script void on_weapon_detonation() … <script> … end_script",
         "description": "This script is executed when the fuse is just about to detonate but prior to the assessment of weapon lethality. The weapon engagement object (available through PLATFORM.WeaponEngagement()) has been populated with the detonation reason and location."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "wsf_weapon_server",
@@ -53677,7 +54091,8 @@
         "syntax": "usetailnuminpdus [0 | 1]",
         "description": "[Optional] Default is zero. Specifies that the weapon j11 track number should be used (if possible) as the dis entity id as well. Even if this parameter is set to 1, the weapon server will still only give a best effort to accommodate, as other clients could already have weapons with the given dis entity id."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_WEAPON_SERVER_PROCESSOR",
@@ -53754,7 +54169,8 @@
         "syntax": "debug <boolean-value>",
         "description": "Allows some debug statements to be written to console."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_WEAPON_TRACK_PROCESSOR",
@@ -53831,7 +54247,8 @@
         "syntax": "uplink_required <boolean-value>",
         "description": "Specifies if uplinked (external) track updates are required. This is used in conjunction with coast_time to decide which track sources are to be used for deciding if the coast time has been exceeded. If ‘true’, then only the time of the last received uplink is used. If ‘false’ then the maximum time of the last uplink received and the last local sensor track received is used. A value of ‘true’ would be appropriate for a command-guided weapon, with or without a terminal seeker. A value of ‘false’ would be appropriate for a track-via-missile system."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_WEAPONS_MANAGER",
@@ -54058,7 +54475,8 @@
         "syntax": "shot_expiry <time-value>",
         "description": "Default: 10 seconds"
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "WSF_WEAPONS_MANAGER_AI",
@@ -54315,7 +54733,8 @@
         "syntax": "priority [Choose-Closest-Threat | Default]",
         "description": "Even if the RWR senses that multiple threats are within range, the Weapons Manager AI will only evalulate whether to perform evasion behaviors relative to one threat per time step. The “priority” command allows the user to select the criteria for choosing which threat to prioritize when deciding whether to evade. “Default” simply chooses the threat that appears first in the RWR’s active track list; this method is most similar to HELIOS, but it can lead to surprising results, such as attempting to evade a threat that is barely within the response range while ignoring a much closer threat. “Choose-Closest-Threat” evaluates evasion behaviors relative to the threat that is closest to the platform."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "xio_interface",
@@ -54517,7 +54936,8 @@
         "syntax": "send_aux_data_updates <boolean-value>",
         "description": "Enables or suppresses aux_data updates for local platforms."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "zone",
@@ -54839,7 +55259,8 @@
         "syntax": "modifier <category-name> <real-value>",
         "description": "Specify attenuation to be applied to comm and sensor device detections. Computed attenuation is proportional to the penetration distance through the zone along detection lines of sight. <category-name> is the name used as a corresponding modifier_category (comm modifier_category and sensor modifier_category). <real-value> is a number between 0.0 and 1.0, representing the attenuation value as a percentage loss per meter within the zone. For example, a modifier value of 0.1 means that 10 meters of penetration will cause 100% attenuation."
       }
-    ]
+    ],
+    "blockKeyword": ""
   },
   {
     "name": "zone_set",
@@ -55011,6 +55432,7 @@
         "syntax": "comm_modifier <modifier-name> <modifier-value>",
         "description": "Declare that this zone_set modifies all comm devices with comm <modifier-name> with the attenuation value defined in <modifier-value>"
       }
-    ]
+    ],
+    "blockKeyword": ""
   }
 ]

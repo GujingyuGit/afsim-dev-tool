@@ -2,7 +2,7 @@
   "name": "afsim-dev-tool",
   "displayName": "AFSIM Dev Tool",
   "description": "AFSIM development support: syntax highlighting, auto-completion, go to definition, hover",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "afsim-dev",
   "engines": {
     "vscode": "^1.118.0"
@@ -10,11 +10,50 @@
   "categories": [
     "Programming Languages"
   ],
+  "icon": "afsim_logo.png",
   "activationEvents": [
     "onLanguage:afsim"
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "commands": [
+      {
+        "command": "afsim.runMission",
+        "title": "Run Mission"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "afsim.runMission",
+          "when": "resourceLangId == afsim",
+          "group": "navigation"
+        }
+      ],
+      "editor/title/run": [
+        {
+          "command": "afsim.runMission",
+          "when": "resourceLangId == afsim",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AFSIM",
+      "properties": {
+        "afsim.missionPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to mission.exe. If empty, you will be prompted to select it on first run."
+        },
+        "afsim.missionArgs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "description": "Extra command-line arguments to pass to mission.exe (e.g. [\"-q\", \"-d\"])."
+        }
+      }
+    },
     "languages": [
       {
         "id": "afsim",

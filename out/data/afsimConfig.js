@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CONFIG_VALUE_KEYWORDS = exports.SCRIPT_BUILTINS = exports.BUILTIN_FUNCTIONS = exports.SCRIPT_GLOBAL_CONSTANTS = exports.SCRIPT_CONTROL_KEYWORDS = exports.SCRIPT_TYPES = exports.PREDEFINED_TYPES = exports.TOP_LEVEL_BLOCK_KEYWORDS = exports.BLOCK_DEFINITIONS = exports.UNITS = exports.COMMANDS = exports.ALL_END_KEYWORDS = exports.ALL_BLOCK_KEYWORDS = exports.SCRIPT_END_KEYWORDS = exports.SCRIPT_BLOCK_KEYWORDS = void 0;
+exports.CONFIG_VALUE_KEYWORDS = exports.SCRIPT_CONTROL_KEYWORDS = exports.TOP_LEVEL_BLOCK_KEYWORDS = exports.BLOCK_DEFINITIONS = exports.UNITS = exports.COMMANDS = exports.ALL_END_KEYWORDS = exports.ALL_BLOCK_KEYWORDS = exports.SCRIPT_END_KEYWORDS = exports.SCRIPT_BLOCK_KEYWORDS = void 0;
 exports.getBlockDef = getBlockDef;
 exports.isScriptBlock = isScriptBlock;
 exports.isBlockKeyword = isBlockKeyword;
@@ -50,9 +50,10 @@ exports.BLOCK_DEFINITIONS = {
         keyword: 'platform_type', endKeyword: 'end_platform_type',
         canDefineType: true, canInherit: true, topLevel: true,
         nestedBlocks: ['mover', 'sensor', 'comm', 'processor', 'weapon', 'track_manager',
-            'route', 'radar_signature', 'infrared_signature', 'optical_signature',
+            'route', 'radar_signature', 'infrared_signature', 'optical_signature', 'acoustic_signature',
             'script_variables', 'script', 'on_update', 'on_message', 'on_initialize',
-            'edit', 'add', 'delete', 'aux_data', 'behavior_tree', 'behavior'],
+            'edit', 'add', 'delete', 'aux_data', 'behavior_tree', 'behavior',
+            'moe', 'grid', 'sensor_coverage'],
         configItems: ['icon', 'category', 'position', 'heading', 'altitude', 'side',
             'speed', 'command_chain', 'update_interval', 'minimum_altitude']
     },
@@ -62,7 +63,8 @@ exports.BLOCK_DEFINITIONS = {
         nestedBlocks: ['mover', 'sensor', 'comm', 'processor', 'weapon', 'track_manager',
             'route', 'radar_signature', 'infrared_signature', 'optical_signature',
             'script_variables', 'script', 'on_update', 'on_message', 'on_initialize',
-            'edit', 'add', 'delete', 'aux_data', 'visual_elements'],
+            'edit', 'add', 'delete', 'aux_data', 'visual_elements',
+            'moe', 'grid', 'sensor_coverage'],
         configItems: ['icon', 'category', 'position', 'heading', 'altitude', 'side',
             'speed', 'command_chain', 'update_interval']
     },
@@ -71,7 +73,7 @@ exports.BLOCK_DEFINITIONS = {
         canDefineType: true, canInherit: true, topLevel: true,
         nestedBlocks: ['aux_data', 'script_variables', 'script', 'on_update',
             'weapon_effects', 'edit', 'add', 'delete', 'mover', 'processor',
-            'tof_and_speed'],
+            'tof_and_speed', 'launch_computer', 'guidance_computer', 'fuel'],
         configItems: ['quantity', 'launched_platform_type', 'weapon_effects',
             'guidance_mode', 'maximum_lateral_acceleration']
     },
@@ -85,7 +87,8 @@ exports.BLOCK_DEFINITIONS = {
         keyword: 'sensor', endKeyword: 'end_sensor',
         canDefineType: true, canInherit: true, topLevel: true,
         nestedBlocks: ['transmitter', 'receiver', 'antenna_pattern',
-            'script_variables', 'script', 'on_update', 'edit', 'add', 'delete'],
+            'script_variables', 'script', 'on_update', 'edit', 'add', 'delete',
+            'effect', 'ea_technique', 'ep_technique'],
         configItems: ['on', 'off', 'one_m2_detect_range', 'maximum_range', 'frame_time',
             'scan_mode', 'azimuth_scan_limits', 'elevation_scan_limits',
             'probability_of_false_alarm', 'required_pd', 'swerling_case',
@@ -100,7 +103,7 @@ exports.BLOCK_DEFINITIONS = {
         nestedBlocks: ['script_variables', 'script', 'on_update', 'on_message',
             'on_initialize', 'state', 'next_state', 'behavior_tree', 'behavior',
             'selector', 'parallel', 'execute', 'precondition', 'edit', 'add',
-            'delete', 'aux_data'],
+            'delete', 'aux_data', 'cyber_trigger', 'cyber_effect'],
         configItems: ['script_debug_writes', 'update_interval', 'evaluation_interval',
             'asset_representation', 'generator', 'evaluator', 'allocator',
             'reallocation_strategy', 'asset_perception']
@@ -108,14 +111,15 @@ exports.BLOCK_DEFINITIONS = {
     'comm': {
         keyword: 'comm', endKeyword: 'end_comm',
         canDefineType: true, canInherit: true, topLevel: true,
-        nestedBlocks: ['script_variables', 'script', 'on_update', 'edit', 'add', 'delete'],
+        nestedBlocks: ['script_variables', 'script', 'on_update', 'edit', 'add', 'delete',
+            'comm_network', 'comm_medium', 'comm_protocol', 'comm_router_protocol'],
         configItems: ['transfer_rate', 'internal_link', 'update_interval', 'on', 'off']
     },
     'mover': {
         keyword: 'mover', endKeyword: 'end_mover',
         canDefineType: true, canInherit: true, topLevel: false,
         nestedBlocks: ['script_variables', 'script', 'on_update', 'edit', 'add', 'delete',
-            'tof_and_speed'],
+            'tof_and_speed', 'fuel'],
         configItems: ['update_interval', 'maximum_lateral_acceleration', 'guidance_mode',
             'minimum_altitude', 'maximum_radial_acceleration', 'maximum_climb_rate',
             'maximum_flight_path_angle', 'initialize_at_offset', 'maximum_speed',
@@ -222,20 +226,26 @@ exports.BLOCK_DEFINITIONS = {
     'radar_signature': {
         keyword: 'radar_signature', endKeyword: 'end_radar_signature',
         canDefineType: true, canInherit: false, topLevel: true,
-        nestedBlocks: ['inline_table', 'script_variables', 'script'],
+        nestedBlocks: ['inline_table'],
         configItems: ['constant']
     },
     'infrared_signature': {
         keyword: 'infrared_signature', endKeyword: 'end_infrared_signature',
         canDefineType: true, canInherit: false, topLevel: true,
-        nestedBlocks: ['band', 'inline_table', 'script_variables', 'script'],
+        nestedBlocks: ['band', 'inline_table'],
         configItems: ['constant']
     },
     'optical_signature': {
         keyword: 'optical_signature', endKeyword: 'end_optical_signature',
         canDefineType: true, canInherit: false, topLevel: true,
-        nestedBlocks: ['inline_table', 'script_variables', 'script'],
+        nestedBlocks: ['inline_table'],
         configItems: ['constant']
+    },
+    'acoustic_signature': {
+        keyword: 'acoustic_signature', endKeyword: 'end_acoustic_signature',
+        canDefineType: true, canInherit: false, topLevel: true,
+        nestedBlocks: ['state'],
+        configItems: ['data_reference_range', 'freq', 'noise_pressure']
     },
     'band': {
         keyword: 'band', endKeyword: 'end_band',
@@ -284,261 +294,123 @@ exports.BLOCK_DEFINITIONS = {
         canDefineType: false, canInherit: false, topLevel: false,
         nestedBlocks: [],
         configItems: []
+    },
+    'launch_computer': {
+        keyword: 'launch_computer', endKeyword: 'end_launch_computer',
+        canDefineType: true, canInherit: true, topLevel: false,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'guidance_computer': {
+        keyword: 'guidance_computer', endKeyword: 'end_guidance_computer',
+        canDefineType: true, canInherit: true, topLevel: false,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'fuel': {
+        keyword: 'fuel', endKeyword: 'end_fuel',
+        canDefineType: true, canInherit: true, topLevel: false,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'effect': {
+        keyword: 'effect', endKeyword: 'end_effect',
+        canDefineType: true, canInherit: true, topLevel: false,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'ea_technique': {
+        keyword: 'ea_technique', endKeyword: 'end_ea_technique',
+        canDefineType: true, canInherit: true, topLevel: false,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'ep_technique': {
+        keyword: 'ep_technique', endKeyword: 'end_ep_technique',
+        canDefineType: true, canInherit: true, topLevel: false,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'moe': {
+        keyword: 'moe', endKeyword: 'end_moe',
+        canDefineType: true, canInherit: true, topLevel: true,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'grid': {
+        keyword: 'grid', endKeyword: 'end_grid',
+        canDefineType: true, canInherit: true, topLevel: true,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'propagator': {
+        keyword: 'propagator', endKeyword: 'end_propagator',
+        canDefineType: true, canInherit: true, topLevel: false,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'atmosphere': {
+        keyword: 'atmosphere', endKeyword: 'end_atmosphere',
+        canDefineType: true, canInherit: true, topLevel: false,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'comm_network': {
+        keyword: 'comm_network', endKeyword: 'end_comm_network',
+        canDefineType: true, canInherit: true, topLevel: false,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'comm_medium': {
+        keyword: 'comm_medium', endKeyword: 'end_comm_medium',
+        canDefineType: true, canInherit: true, topLevel: false,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'comm_protocol': {
+        keyword: 'comm_protocol', endKeyword: 'end_comm_protocol',
+        canDefineType: true, canInherit: true, topLevel: false,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'comm_router_protocol': {
+        keyword: 'comm_router_protocol', endKeyword: 'end_comm_router_protocol',
+        canDefineType: true, canInherit: true, topLevel: false,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'cyber_trigger': {
+        keyword: 'cyber_trigger', endKeyword: 'end_cyber_trigger',
+        canDefineType: true, canInherit: true, topLevel: false,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'cyber_effect': {
+        keyword: 'cyber_effect', endKeyword: 'end_cyber_effect',
+        canDefineType: true, canInherit: true, topLevel: false,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'attenuation': {
+        keyword: 'attenuation', endKeyword: 'end_attenuation',
+        canDefineType: true, canInherit: true, topLevel: false,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
+    },
+    'sensor_coverage': {
+        keyword: 'sensor_coverage', endKeyword: 'end_sensor_coverage',
+        canDefineType: true, canInherit: true, topLevel: false,
+        nestedBlocks: ['script_variables', 'script', 'edit', 'add', 'delete'],
+        configItems: []
     }
 };
 exports.TOP_LEVEL_BLOCK_KEYWORDS = Object.values(exports.BLOCK_DEFINITIONS)
     .filter(b => b.topLevel)
     .map(b => b.keyword);
-exports.PREDEFINED_TYPES = [
-    'WSF_PLATFORM', 'WSF_AIR_MOVER', 'WSF_SURFACE_MOVER', 'WSF_STRAIGHT_LINE_MOVER',
-    'WSF_FORMATION_FLYER', 'WSF_RADAR_SENSOR', 'WSF_COMM_TRANSCEIVER',
-    'WSF_TRACK_PROCESSOR', 'WSF_PERCEPTION_PROCESSOR', 'WSF_THREAT_PROCESSOR',
-    'WSF_TASK_PROCESSOR', 'WSF_SCRIPT_PROCESSOR', 'WSF_QUANTUM_TASKER_PROCESSOR',
-    'WSF_PERFECT_TRACKER', 'WSF_AIR_TARGET_FUSE', 'WSF_GROUND_TARGET_FUSE',
-    'WSF_EXPLICIT_WEAPON', 'WSF_GRADUATED_LETHALITY', 'WSF_KALMAN_FILTER'
-];
-exports.SCRIPT_TYPES = [
-    'int', 'double', 'float', 'bool', 'string', 'void', 'struct', 'auto',
-    'Array', 'WsfPlatform', 'WsfWeapon', 'WsfTrack', 'WsfGeoPoint',
-    'WsfSimulation', 'WsfThreatProcessor', 'WsfTaskAssignMessage',
-    'WsfLocalTrack', 'WsfTrackId', 'WsfLocalTrackList', 'WsfQuantumTask',
-    'WsfAssetPerception', 'WsfTask', 'WsfMessage', 'WsfSensor', 'WsfComm',
-    'WsfProcessor', 'WsfPlatformPart', 'WsfTrackProcessor',
-    'WsfPerceptionProcessor', 'WsfScriptProcessor', 'WsfString'
-];
 exports.SCRIPT_CONTROL_KEYWORDS = [
     'if', 'else', 'for', 'while', 'do', 'foreach', 'in',
     'return', 'break', 'continue', 'switch', 'case', 'default'
 ];
-exports.SCRIPT_GLOBAL_CONSTANTS = [
-    'PLATFORM', 'TRACK', 'MESSAGE', 'TIME_NOW', 'RANDOM', 'MATH', 'SELF'
-];
-exports.BUILTIN_FUNCTIONS = [
-    {
-        name: 'writeln',
-        signatures: [
-            {
-                returnType: 'void',
-                params: [
-                    { type: 'string', name: 'msg', description: 'Message to write' }
-                ],
-                description: 'Write a message to the output log'
-            },
-            {
-                returnType: 'void',
-                params: [
-                    { type: 'string', name: 'msg' },
-                    { type: 'Object', name: 'obj', description: 'Additional objects to format into message' }
-                ],
-                description: 'Write a formatted message to the output log'
-            }
-        ]
-    },
-    {
-        name: 'writeln_d',
-        signatures: [
-            {
-                returnType: 'void',
-                params: [
-                    { type: 'string', name: 'msg', description: 'Debug message to write' }
-                ],
-                description: 'Write a debug message (only when script_debug_writes is on)'
-            }
-        ]
-    },
-    {
-        name: 'abs',
-        signatures: [
-            {
-                returnType: 'double',
-                params: [
-                    { type: 'double', name: 'x' }
-                ],
-                description: 'Absolute value'
-            }
-        ]
-    },
-    {
-        name: 'min',
-        signatures: [
-            {
-                returnType: 'double',
-                params: [
-                    { type: 'double', name: 'a' },
-                    { type: 'double', name: 'b' }
-                ],
-                description: 'Minimum of two values'
-            }
-        ]
-    },
-    {
-        name: 'max',
-        signatures: [
-            {
-                returnType: 'double',
-                params: [
-                    { type: 'double', name: 'a' },
-                    { type: 'double', name: 'b' }
-                ],
-                description: 'Maximum of two values'
-            }
-        ]
-    },
-    {
-        name: 'sqrt',
-        signatures: [
-            {
-                returnType: 'double',
-                params: [
-                    { type: 'double', name: 'x' }
-                ],
-                description: 'Square root'
-            }
-        ]
-    },
-    {
-        name: 'pow',
-        signatures: [
-            {
-                returnType: 'double',
-                params: [
-                    { type: 'double', name: 'base' },
-                    { type: 'double', name: 'exp' }
-                ],
-                description: 'base raised to the power exp'
-            }
-        ]
-    },
-    {
-        name: 'sin',
-        signatures: [
-            {
-                returnType: 'double',
-                params: [
-                    { type: 'double', name: 'x', description: 'Angle in radians' }
-                ],
-                description: 'Sine'
-            }
-        ]
-    },
-    {
-        name: 'cos',
-        signatures: [
-            {
-                returnType: 'double',
-                params: [
-                    { type: 'double', name: 'x', description: 'Angle in radians' }
-                ],
-                description: 'Cosine'
-            }
-        ]
-    },
-    {
-        name: 'tan',
-        signatures: [
-            {
-                returnType: 'double',
-                params: [
-                    { type: 'double', name: 'x', description: 'Angle in radians' }
-                ],
-                description: 'Tangent'
-            }
-        ]
-    },
-    {
-        name: 'atan2',
-        signatures: [
-            {
-                returnType: 'double',
-                params: [
-                    { type: 'double', name: 'y' },
-                    { type: 'double', name: 'x' }
-                ],
-                description: 'Arc tangent of y/x in radians'
-            }
-        ]
-    },
-    {
-        name: 'log',
-        signatures: [
-            {
-                returnType: 'double',
-                params: [
-                    { type: 'double', name: 'x' }
-                ],
-                description: 'Natural logarithm'
-            }
-        ]
-    },
-    {
-        name: 'exp',
-        signatures: [
-            {
-                returnType: 'double',
-                params: [
-                    { type: 'double', name: 'x' }
-                ],
-                description: 'e raised to the power x'
-            }
-        ]
-    },
-    {
-        name: 'floor',
-        signatures: [
-            {
-                returnType: 'double',
-                params: [
-                    { type: 'double', name: 'x' }
-                ],
-                description: 'Round down to nearest integer'
-            }
-        ]
-    },
-    {
-        name: 'ceil',
-        signatures: [
-            {
-                returnType: 'double',
-                params: [
-                    { type: 'double', name: 'x' }
-                ],
-                description: 'Round up to nearest integer'
-            }
-        ]
-    },
-    {
-        name: 'round',
-        signatures: [
-            {
-                returnType: 'double',
-                params: [
-                    { type: 'double', name: 'x' }
-                ],
-                description: 'Round to nearest integer'
-            }
-        ]
-    },
-    {
-        name: 'ToString',
-        signatures: [
-            {
-                returnType: 'string',
-                params: [
-                    { type: 'double', name: 'x' }
-                ],
-                description: 'Convert number to string'
-            },
-            {
-                returnType: 'string',
-                params: [
-                    { type: 'int', name: 'x' }
-                ],
-                description: 'Convert integer to string'
-            }
-        ]
-    }
-];
-exports.SCRIPT_BUILTINS = exports.BUILTIN_FUNCTIONS.map(f => f.name);
 exports.CONFIG_VALUE_KEYWORDS = {
     'on': [],
     'off': [],

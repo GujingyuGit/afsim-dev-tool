@@ -1,8 +1,41 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AfsimHoverProvider = void 0;
-const vscode = require("vscode");
-const afsimConfig_1 = require("./data/afsimConfig");
+const vscode = __importStar(require("vscode"));
+const afsim_domain_1 = require("./data/afsim-domain");
 class AfsimHoverProvider {
     parser;
     constructor(parser) {
@@ -19,30 +52,26 @@ class AfsimHoverProvider {
         if (!word || word.length < 1)
             return null;
         // Hover for global constants
-        if (afsimConfig_1.SCRIPT_GLOBAL_CONSTANTS.includes(word)) {
+        const gc = (0, afsim_domain_1.getGlobalConstant)(word);
+        if (gc) {
             const md = new vscode.MarkdownString();
             md.appendCodeblock(word, 'afsim');
-            md.appendMarkdown(`\n\n**Global constant**`);
-            const descriptions = {
-                'PLATFORM': '`WsfPlatform` — Current platform',
-                'TRACK': '`WsfTrack` — Current track',
-                'MESSAGE': '`WsfMessage` — Current message',
-                'TIME_NOW': '`double` — Current simulation time in seconds',
-                'RANDOM': 'Random number generator',
-                'MATH': 'Math utilities',
-                'SELF': '`WsfPlatform` — Self-reference platform'
-            };
-            if (descriptions[word]) {
-                md.appendMarkdown(`\n\n${descriptions[word]}`);
+            md.appendMarkdown('\n\n**Global constant**');
+            if (gc.description) {
+                md.appendMarkdown(`\n\n${gc.description}`);
             }
             return new vscode.Hover(md, range);
         }
         // Hover for script types
-        if (afsimConfig_1.SCRIPT_TYPES.includes(word)) {
+        if ((0, afsim_domain_1.getScriptTypes)().includes(word)) {
             return new vscode.Hover(new vscode.MarkdownString(`\`\`\`afsim\n${word}\n\`\`\`\n\nScript type: \`${word}\``), range);
         }
+        // Hover for predefined types
+        if ((0, afsim_domain_1.getPredefinedTypes)().includes(word)) {
+            return new vscode.Hover(new vscode.MarkdownString(`\`\`\`afsim\n${word}\n\`\`\`\n\nPredefined WSF type`), range);
+        }
         // Hover for built-in functions (with overload support)
-        const builtin = afsimConfig_1.BUILTIN_FUNCTIONS.find(f => f.name === word);
+        const builtin = (0, afsim_domain_1.getBuiltinFunctions)().find((f) => f.name === word);
         if (builtin) {
             const contents = [];
             for (const sig of builtin.signatures) {
@@ -62,6 +91,10 @@ class AfsimHoverProvider {
             }
             return new vscode.Hover(contents, range);
         }
+        // Hover for class methods — check if word is a method on a type we can resolve
+        const methodHover = this.tryMethodHover(document, position, word, range);
+        if (methodHover)
+            return methodHover;
         // Hover for user-defined variables and functions
         const parsed = this.parser.getDocument(document.uri);
         if (parsed) {
@@ -101,6 +134,55 @@ class AfsimHoverProvider {
             }
         }
         return null;
+    }
+    /**
+     * Try to show hover for a class method by looking at the expression before ".".
+     * e.g., for "pla.Weapon()", hovering over "Weapon" shows WsfWeapon method info.
+     */
+    tryMethodHover(document, position, word, wordRange) {
+        // Look at the line to find "xxx.word" pattern
+        const line = document.lineAt(position.line).text;
+        const linePrefix = line.substring(0, wordRange.start.character);
+        // Find the expression before "." or "->"
+        const dotMatch = linePrefix.match(/(\w+)\s*(?:\.|->)\s*$/);
+        if (!dotMatch)
+            return null;
+        const objName = dotMatch[1];
+        // Resolve the type of the object
+        let objType = null;
+        // Check global constants
+        objType = (0, afsim_domain_1.getGlobalConstantType)(objName);
+        if (!objType) {
+            // Check parsed variables
+            for (const doc of this.parser.getAllDocuments()) {
+                for (const v of doc.variables) {
+                    if (v.name === objName) {
+                        objType = v.type;
+                        break;
+                    }
+                }
+                if (objType)
+                    break;
+            }
+        }
+        if (!objType)
+            return null;
+        // Find the method on this type
+        const methods = (0, afsim_domain_1.getAllMethodsForClass)(objType);
+        const method = methods.find((m) => m.name === word);
+        if (!method || method.signatures.length === 0)
+            return null;
+        const contents = [];
+        for (const sig of method.signatures) {
+            const md = new vscode.MarkdownString();
+            const paramStr = sig.params.map(p => `${p.type} ${p.name}`).join(', ');
+            md.appendCodeblock(`${sig.returnType} ${method.name}(${paramStr})`, 'cpp');
+            if (sig.description) {
+                md.appendMarkdown(`\n\n${sig.description}`);
+            }
+            contents.push(md);
+        }
+        return new vscode.Hover(contents, wordRange);
     }
 }
 exports.AfsimHoverProvider = AfsimHoverProvider;
