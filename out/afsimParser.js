@@ -8,9 +8,13 @@ class AfsimParser {
     updateTimer = new Map();
     delay;
     onParsedCallbacks = [];
+    includeResolver = null;
     constructor() {
         const config = vscode.workspace.getConfiguration('afsim');
         this.delay = config.get('scriptCompletionDelay', 500);
+    }
+    setIncludeResolver(resolver) {
+        this.includeResolver = resolver;
     }
     onParsed(callback) {
         this.onParsedCallbacks.push(callback);
@@ -187,7 +191,45 @@ class AfsimParser {
         for (const cb of this.onParsedCallbacks) {
             cb(parsed);
         }
+        // Auto-parse include_once referenced files
+        this.parseIncludes(parsed);
         return parsed;
+    }
+    parseIncludes(parsed) {
+        for (const includePath of parsed.includes) {
+            let targetUri = null;
+            if (this.includeResolver) {
+                targetUri = this.includeResolver(includePath, parsed.uri);
+            }
+            if (!targetUri) {
+                // Default resolution: resolve relative to the document's directory
+                try {
+                    const docDir = vscode.Uri.joinPath(parsed.uri, '..');
+                    targetUri = vscode.Uri.joinPath(docDir, includePath);
+                }
+                catch {
+                    continue;
+                }
+            }
+            const targetKey = targetUri.toString();
+            if (this.documents.has(targetKey))
+                continue; // Already parsed
+            // Check if the file is already open in the editor
+            const openDoc = vscode.workspace.textDocuments.find(d => d.uri.toString() === targetKey);
+            if (openDoc) {
+                this.parseDocument(openDoc);
+            }
+            else {
+                // File not open yet — open asynchronously and parse
+                vscode.workspace.openTextDocument(targetUri).then(doc => {
+                    if (!this.documents.has(doc.uri.toString())) {
+                        this.parseDocument(doc);
+                    }
+                }, () => {
+                    // File not found or cannot be opened, skip silently
+                });
+            }
+        }
     }
     parseScriptSignature(rest, line, uri, parsed, scope) {
         // script <return_type> <name>(<params>)
@@ -205,6 +247,7 @@ class AfsimParser {
                 location: new vscode.Location(uri, new vscode.Position(line, 0)),
                 fileUri: uri
             });
+            this.parseParamsToVariables(params, line, uri, parsed);
             return;
         }
         // script void FunctionName(...)
@@ -221,6 +264,7 @@ class AfsimParser {
                 location: new vscode.Location(uri, new vscode.Position(line, 0)),
                 fileUri: uri
             });
+            this.parseParamsToVariables(params, line, uri, parsed);
             return;
         }
         // Array<Type> return type
@@ -237,6 +281,58 @@ class AfsimParser {
                 location: new vscode.Location(uri, new vscode.Position(line, 0)),
                 fileUri: uri
             });
+            this.parseParamsToVariables(params, line, uri, parsed);
+        }
+        // struct <Name>(<params>) — struct return type
+        const structMatch = rest.match(/^(struct)\s+(\w+)\s*\(([^)]*)\)/);
+        if (structMatch) {
+            const returnType = `struct ${structMatch[2]}`;
+            const name = structMatch[2];
+            const params = structMatch[3].trim();
+            scope.name = name;
+            parsed.functions.push({
+                name,
+                returnType,
+                params,
+                location: new vscode.Location(uri, new vscode.Position(line, 0)),
+                fileUri: uri
+            });
+            this.parseParamsToVariables(params, line, uri, parsed);
+        }
+    }
+    parseParamsToVariables(params, line, uri, parsed) {
+        if (!params || params.trim() === '')
+            return;
+        // Split on commas, but respect angle brackets (Array<Type>)
+        const segments = [];
+        let depth = 0;
+        let current = '';
+        for (const ch of params) {
+            if (ch === '<')
+                depth++;
+            else if (ch === '>')
+                depth--;
+            else if (ch === ',' && depth === 0) {
+                segments.push(current.trim());
+                current = '';
+                continue;
+            }
+            current += ch;
+        }
+        if (current.trim())
+            segments.push(current.trim());
+        for (const seg of segments) {
+            // Match: Type name  or  Array<Type> name
+            const m = seg.match(/^(Array<[^>]+>|[A-Za-z_]\w*)\s+(\w+)$/);
+            if (m) {
+                parsed.variables.push({
+                    name: m[2],
+                    type: m[1],
+                    isExtern: false,
+                    location: new vscode.Location(uri, new vscode.Position(line, 0)),
+                    fileUri: uri
+                });
+            }
         }
     }
     parseScriptVariable(line, lineNum, uri, parsed) {

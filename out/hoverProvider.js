@@ -9,7 +9,6 @@ class AfsimHoverProvider {
         this.parser = parser;
     }
     provideHover(document, position, token) {
-        // Only provide hover inside script blocks
         if (!this.parser.isInsideScriptBlock(position, document.uri)) {
             return null;
         }
@@ -17,35 +16,56 @@ class AfsimHoverProvider {
         if (!range)
             return null;
         const word = document.getText(range);
-        if (!word || word.length < 2)
+        if (!word || word.length < 1)
             return null;
         // Hover for global constants
         if (afsimConfig_1.SCRIPT_GLOBAL_CONSTANTS.includes(word)) {
             const md = new vscode.MarkdownString();
             md.appendCodeblock(word, 'afsim');
-            md.appendMarkdown(`\n\n**Global constant**\n\nType information available from AFSIM context.`);
-            if (word === 'PLATFORM')
-                md.appendMarkdown('\n\n`WsfPlatform` - Current platform');
-            if (word === 'TRACK')
-                md.appendMarkdown('\n\n`WsfTrack` - Current track');
-            if (word === 'MESSAGE')
-                md.appendMarkdown('\n\n`WsfMessage` - Current message');
-            if (word === 'TIME_NOW')
-                md.appendMarkdown('\n\n`double` - Current simulation time');
-            if (word === 'RANDOM')
-                md.appendMarkdown('\n\nRandom number generator');
-            if (word === 'MATH')
-                md.appendMarkdown('\n\nMath utilities');
+            md.appendMarkdown(`\n\n**Global constant**`);
+            const descriptions = {
+                'PLATFORM': '`WsfPlatform` — Current platform',
+                'TRACK': '`WsfTrack` — Current track',
+                'MESSAGE': '`WsfMessage` — Current message',
+                'TIME_NOW': '`double` — Current simulation time in seconds',
+                'RANDOM': 'Random number generator',
+                'MATH': 'Math utilities',
+                'SELF': '`WsfPlatform` — Self-reference platform'
+            };
+            if (descriptions[word]) {
+                md.appendMarkdown(`\n\n${descriptions[word]}`);
+            }
             return new vscode.Hover(md, range);
         }
         // Hover for script types
         if (afsimConfig_1.SCRIPT_TYPES.includes(word)) {
             return new vscode.Hover(new vscode.MarkdownString(`\`\`\`afsim\n${word}\n\`\`\`\n\nScript type: \`${word}\``), range);
         }
-        // Hover for variables - show type
+        // Hover for built-in functions (with overload support)
+        const builtin = afsimConfig_1.BUILTIN_FUNCTIONS.find(f => f.name === word);
+        if (builtin) {
+            const contents = [];
+            for (const sig of builtin.signatures) {
+                const md = new vscode.MarkdownString();
+                const paramStr = sig.params.map(p => `${p.type} ${p.name}`).join(', ');
+                md.appendCodeblock(`${sig.returnType} ${builtin.name}(${paramStr})`, 'cpp');
+                if (sig.description) {
+                    md.appendMarkdown(`\n\n${sig.description}`);
+                }
+                if (sig.params.some(p => p.description)) {
+                    md.appendMarkdown('\n\n**Parameters:**');
+                    for (const p of sig.params) {
+                        md.appendMarkdown(`\n- \`${p.type} ${p.name}\`${p.description ? ` — ${p.description}` : ''}`);
+                    }
+                }
+                contents.push(md);
+            }
+            return new vscode.Hover(contents, range);
+        }
+        // Hover for user-defined variables and functions
         const parsed = this.parser.getDocument(document.uri);
         if (parsed) {
-            // Search all documents for variables
+            // Search for variables
             for (const doc of this.parser.getAllDocuments()) {
                 for (const v of doc.variables) {
                     if (v.name === word) {
@@ -57,16 +77,27 @@ class AfsimHoverProvider {
                     }
                 }
             }
-            // Search for functions - show signature
+            // Search for user-defined functions (with overload support)
+            const matchingFunctions = [];
             for (const doc of this.parser.getAllDocuments()) {
                 for (const fn of doc.functions) {
                     if (fn.name === word) {
-                        const md = new vscode.MarkdownString();
-                        md.appendCodeblock(`${fn.returnType} ${fn.name}(${fn.params})`, 'cpp');
-                        md.appendMarkdown(`\n\nDefined in: \`${doc.uri.fsPath}\``);
-                        return new vscode.Hover(md, range);
+                        matchingFunctions.push({ fn, docUri: doc.uri });
                     }
                 }
+            }
+            if (matchingFunctions.length > 0) {
+                const contents = [];
+                for (const { fn, docUri } of matchingFunctions) {
+                    const md = new vscode.MarkdownString();
+                    md.appendCodeblock(`${fn.returnType} ${fn.name}(${fn.params})`, 'cpp');
+                    if (docUri.toString() !== document.uri.toString()) {
+                        const relPath = vscode.workspace.asRelativePath(docUri);
+                        md.appendMarkdown(`\n\nDefined in: \`${relPath}\``);
+                    }
+                    contents.push(md);
+                }
+                return new vscode.Hover(contents, range);
             }
         }
         return null;

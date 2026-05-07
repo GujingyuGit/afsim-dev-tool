@@ -328,10 +328,250 @@ export const SCRIPT_GLOBAL_CONSTANTS = [
   'PLATFORM', 'TRACK', 'MESSAGE', 'TIME_NOW', 'RANDOM', 'MATH', 'SELF'
 ];
 
-export const SCRIPT_BUILTINS = [
-  'writeln', 'writeln_d', 'abs', 'min', 'max', 'sqrt', 'pow', 'sin', 'cos', 'tan',
-  'atan2', 'log', 'exp', 'floor', 'ceil', 'round', 'ToString'
+export interface BuiltinParam {
+  type: string;
+  name: string;
+  description?: string;
+}
+
+export interface BuiltinSignature {
+  returnType: string;
+  params: BuiltinParam[];
+  description?: string;
+}
+
+export interface BuiltinFunction {
+  name: string;
+  signatures: BuiltinSignature[];
+}
+
+export const BUILTIN_FUNCTIONS: BuiltinFunction[] = [
+  {
+    name: 'writeln',
+    signatures: [
+      {
+        returnType: 'void',
+        params: [
+          { type: 'string', name: 'msg', description: 'Message to write' }
+        ],
+        description: 'Write a message to the output log'
+      },
+      {
+        returnType: 'void',
+        params: [
+          { type: 'string', name: 'msg' },
+          { type: 'Object', name: 'obj', description: 'Additional objects to format into message' }
+        ],
+        description: 'Write a formatted message to the output log'
+      }
+    ]
+  },
+  {
+    name: 'writeln_d',
+    signatures: [
+      {
+        returnType: 'void',
+        params: [
+          { type: 'string', name: 'msg', description: 'Debug message to write' }
+        ],
+        description: 'Write a debug message (only when script_debug_writes is on)'
+      }
+    ]
+  },
+  {
+    name: 'abs',
+    signatures: [
+      {
+        returnType: 'double',
+        params: [
+          { type: 'double', name: 'x' }
+        ],
+        description: 'Absolute value'
+      }
+    ]
+  },
+  {
+    name: 'min',
+    signatures: [
+      {
+        returnType: 'double',
+        params: [
+          { type: 'double', name: 'a' },
+          { type: 'double', name: 'b' }
+        ],
+        description: 'Minimum of two values'
+      }
+    ]
+  },
+  {
+    name: 'max',
+    signatures: [
+      {
+        returnType: 'double',
+        params: [
+          { type: 'double', name: 'a' },
+          { type: 'double', name: 'b' }
+        ],
+        description: 'Maximum of two values'
+      }
+    ]
+  },
+  {
+    name: 'sqrt',
+    signatures: [
+      {
+        returnType: 'double',
+        params: [
+          { type: 'double', name: 'x' }
+        ],
+        description: 'Square root'
+      }
+    ]
+  },
+  {
+    name: 'pow',
+    signatures: [
+      {
+        returnType: 'double',
+        params: [
+          { type: 'double', name: 'base' },
+          { type: 'double', name: 'exp' }
+        ],
+        description: 'base raised to the power exp'
+      }
+    ]
+  },
+  {
+    name: 'sin',
+    signatures: [
+      {
+        returnType: 'double',
+        params: [
+          { type: 'double', name: 'x', description: 'Angle in radians' }
+        ],
+        description: 'Sine'
+      }
+    ]
+  },
+  {
+    name: 'cos',
+    signatures: [
+      {
+        returnType: 'double',
+        params: [
+          { type: 'double', name: 'x', description: 'Angle in radians' }
+        ],
+        description: 'Cosine'
+      }
+    ]
+  },
+  {
+    name: 'tan',
+    signatures: [
+      {
+        returnType: 'double',
+        params: [
+          { type: 'double', name: 'x', description: 'Angle in radians' }
+        ],
+        description: 'Tangent'
+      }
+    ]
+  },
+  {
+    name: 'atan2',
+    signatures: [
+      {
+        returnType: 'double',
+        params: [
+          { type: 'double', name: 'y' },
+          { type: 'double', name: 'x' }
+        ],
+        description: 'Arc tangent of y/x in radians'
+      }
+    ]
+  },
+  {
+    name: 'log',
+    signatures: [
+      {
+        returnType: 'double',
+        params: [
+          { type: 'double', name: 'x' }
+        ],
+        description: 'Natural logarithm'
+      }
+    ]
+  },
+  {
+    name: 'exp',
+    signatures: [
+      {
+        returnType: 'double',
+        params: [
+          { type: 'double', name: 'x' }
+        ],
+        description: 'e raised to the power x'
+      }
+    ]
+  },
+  {
+    name: 'floor',
+    signatures: [
+      {
+        returnType: 'double',
+        params: [
+          { type: 'double', name: 'x' }
+        ],
+        description: 'Round down to nearest integer'
+      }
+    ]
+  },
+  {
+    name: 'ceil',
+    signatures: [
+      {
+        returnType: 'double',
+        params: [
+          { type: 'double', name: 'x' }
+        ],
+        description: 'Round up to nearest integer'
+      }
+    ]
+  },
+  {
+    name: 'round',
+    signatures: [
+      {
+        returnType: 'double',
+        params: [
+          { type: 'double', name: 'x' }
+        ],
+        description: 'Round to nearest integer'
+      }
+    ]
+  },
+  {
+    name: 'ToString',
+    signatures: [
+      {
+        returnType: 'string',
+        params: [
+          { type: 'double', name: 'x' }
+        ],
+        description: 'Convert number to string'
+      },
+      {
+        returnType: 'string',
+        params: [
+          { type: 'int', name: 'x' }
+        ],
+        description: 'Convert integer to string'
+      }
+    ]
+  }
 ];
+
+export const SCRIPT_BUILTINS: string[] = BUILTIN_FUNCTIONS.map(f => f.name);
 
 export const CONFIG_VALUE_KEYWORDS: Record<string, string[]> = {
   'on': [],

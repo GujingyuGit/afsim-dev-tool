@@ -12,7 +12,7 @@ class AfsimDefinitionProvider {
         if (!range)
             return null;
         const word = document.getText(range);
-        if (!word || word.length < 2)
+        if (!word || word.length < 1)
             return null;
         // Check if we're inside a script block
         const isScript = this.parser.isInsideScriptBlock(position, document.uri);

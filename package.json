@@ -2,7 +2,7 @@
   "name": "afsim-dev-tool",
   "displayName": "AFSIM Dev Tool",
   "description": "AFSIM development support: syntax highlighting, auto-completion, go to definition, hover",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "afsim-dev",
   "engines": {
     "vscode": "^1.118.0"

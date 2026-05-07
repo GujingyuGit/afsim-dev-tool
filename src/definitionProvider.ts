@@ -18,7 +18,7 @@ export class AfsimDefinitionProvider implements vscode.DefinitionProvider {
     if (!range) return null;
 
     const word = document.getText(range);
-    if (!word || word.length < 2) return null;
+    if (!word || word.length < 1) return null;
 
     // Check if we're inside a script block
     const isScript = this.parser.isInsideScriptBlock(position, document.uri);

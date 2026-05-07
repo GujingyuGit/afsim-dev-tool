@@ -3,8 +3,9 @@ import { AfsimParser, BlockScope } from './afsimParser';
 import {
   TOP_LEVEL_BLOCK_KEYWORDS, BLOCK_DEFINITIONS, SCRIPT_BLOCK_KEYWORDS,
   SCRIPT_END_KEYWORDS, UNITS, SCRIPT_TYPES, SCRIPT_CONTROL_KEYWORDS,
-  SCRIPT_GLOBAL_CONSTANTS, SCRIPT_BUILTINS, PREDEFINED_TYPES,
-  COMMANDS, isScriptBlock, CONFIG_VALUE_KEYWORDS, getBlockDef
+  SCRIPT_GLOBAL_CONSTANTS, PREDEFINED_TYPES,
+  COMMANDS, isScriptBlock, CONFIG_VALUE_KEYWORDS, getBlockDef,
+  BUILTIN_FUNCTIONS
 } from './data/afsimConfig';
 
 export class AfsimCompletionProvider implements vscode.CompletionItemProvider {
@@ -157,7 +158,7 @@ export class AfsimCompletionProvider implements vscode.CompletionItemProvider {
 
     // After "." or ">" (for ->): member completion
     if (triggerChar === '.' || triggerChar === '>') {
-      this.addMemberCompletions(items, prefix);
+      this.addMemberCompletions(items, prefix, document);
       return;
     }
 
@@ -183,9 +184,18 @@ export class AfsimCompletionProvider implements vscode.CompletionItemProvider {
     }
 
     // Built-in functions
-    for (const fn of SCRIPT_BUILTINS) {
-      const item = new vscode.CompletionItem(fn, vscode.CompletionItemKind.Function);
-      item.detail = 'Built-in function';
+    for (const builtin of BUILTIN_FUNCTIONS) {
+      const overloadCount = builtin.signatures.length;
+      const primarySig = builtin.signatures[0];
+      const paramStr = primarySig.params.map(p => `${p.type} ${p.name}`).join(', ');
+      const item = new vscode.CompletionItem(builtin.name, vscode.CompletionItemKind.Function);
+      item.detail = `${primarySig.returnType} ${builtin.name}(${paramStr})`;
+      if (overloadCount > 1) {
+        item.detail += ` (+${overloadCount - 1} overload${overloadCount > 2 ? 's' : ''})`;
+      }
+      if (primarySig.description) {
+        item.documentation = new vscode.MarkdownString(primarySig.description);
+      }
       items.push(item);
     }
 
@@ -219,19 +229,291 @@ export class AfsimCompletionProvider implements vscode.CompletionItemProvider {
     items.push(new vscode.CompletionItem('null', vscode.CompletionItemKind.Constant));
   }
 
-  private addMemberCompletions(items: vscode.CompletionItem[], prefix: string): void {
-    // Extract the variable name before "." or "->"
-    const memberMatch = prefix.match(/(\w+)\s*(?:\.|->)\s*$/);
-    if (!memberMatch) return;
+  private addMemberCompletions(items: vscode.CompletionItem[], prefix: string, document?: vscode.TextDocument): void {
+    // Resolve the type of the expression before the final "." or "->"
+    const exprType = this.resolveExpressionType(prefix, document);
+    if (!exprType) return;
 
-    const varName = memberMatch[1];
-    // Provide common member completions based on type hints
-    const members = this.getMembersForVariable(varName);
+    const members = this.getMembersForType(exprType);
     for (const m of members) {
       const item = new vscode.CompletionItem(m.name, m.kind);
       item.detail = m.detail;
       items.push(item);
     }
+  }
+
+  private resolveExpressionType(prefix: string, document?: vscode.TextDocument): string | null {
+    // Split the prefix into a chain: e.g. "pla.Weapon()." -> ["pla", "Weapon()", ""]
+    // We need to find the type of the expression before the last "." or "->"
+    const chainMatch = prefix.match(/^(.+?)\s*(?:\.|->)\s*$/);
+    if (!chainMatch) return null;
+
+    const expr = chainMatch[1].trim();
+    return this.resolveTypeOfExpr(expr, document);
+  }
+
+  private resolveTypeOfExpr(expr: string, document?: vscode.TextDocument): string | null {
+    // Recursively resolve chained expressions like "pla.Weapon()" or "PLATFORM.Location()"
+    // Strategy: split on the LAST "." or "->" and resolve left-to-right
+
+    // Find the last "." or "->" that is NOT inside parentheses
+    let lastDotIdx = -1;
+    let parenDepth = 0;
+    for (let i = expr.length - 1; i >= 0; i--) {
+      if (expr[i] === ')') parenDepth++;
+      else if (expr[i] === '(') parenDepth--;
+      else if (parenDepth === 0) {
+        if (expr[i] === '.') {
+          lastDotIdx = i;
+          break;
+        }
+        if (i > 0 && expr[i - 1] === '-' && expr[i] === '>') {
+          lastDotIdx = i - 1;
+          break;
+        }
+      }
+    }
+
+    if (lastDotIdx >= 0) {
+      // Chained: resolve left part, then look up the method on that type
+      const leftExpr = expr.substring(0, lastDotIdx).trim();
+      const rightPart = expr.substring(lastDotIdx).trim();
+      // rightPart is ".method()" or "->method()"
+      const methodMatch = rightPart.match(/^(?:\.|->)\s*(\w+)\s*\(\s*\)$/);
+      if (methodMatch) {
+        const methodName = methodMatch[1];
+        const leftType = this.resolveTypeOfExpr(leftExpr, document);
+        if (leftType) {
+          return this.getReturnTypeOfMethod(leftType, methodName);
+        }
+      }
+      return null;
+    }
+
+    // Base case: simple identifier, possibly with () call
+    const callMatch = expr.match(/^(\w+)\s*\(\s*\)$/);
+    if (callMatch) {
+      // Function call like "WsfSimulation.PlatformCount()"
+      // For now, check if it's a method on a known type prefix — unlikely at base level
+      return null;
+    }
+
+    // Simple variable name
+    const varName = expr.trim();
+
+    // Check global constants
+    const globalConstTypes: Record<string, string> = {
+      'PLATFORM': 'WsfPlatform', 'SELF': 'WsfPlatform',
+      'TRACK': 'WsfTrack', 'MESSAGE': 'WsfMessage',
+      'MATH': 'WsfMath', 'RANDOM': 'WsfRandom'
+    };
+    if (globalConstTypes[varName]) {
+      return globalConstTypes[varName];
+    }
+
+    // Look up variable type from parsed documents
+    if (document) {
+      for (const doc of this.parser.getAllDocuments()) {
+        for (const v of doc.variables) {
+          if (v.name === varName) {
+            return v.type;
+          }
+        }
+      }
+    }
+
+    return null;
+  }
+
+  private getReturnTypeOfMethod(type: string, methodName: string): string | null {
+    // Look up the return type of a method on a given type
+    const typeMethodReturnTypes: Record<string, Record<string, string>> = {
+      'WsfPlatform': {
+        'Name': 'string', 'Side': 'string', 'Type': 'string', 'Icon': 'string',
+        'Index': 'int', 'IsValid': 'bool', 'IsNull': 'bool', 'IsExternallyControlled': 'bool',
+        'Location': 'WsfGeoPoint', 'Altitude': 'double', 'Speed': 'double',
+        'GroundSpeed': 'double', 'Heading': 'double', 'CreationTime': 'double',
+        'TimeSinceCreation': 'double',
+        'Commander': 'WsfPlatform', 'CommanderName': 'string',
+        'Peers': 'WsfPlatformList', 'Subordinates': 'WsfPlatformList',
+        'Mover': 'WsfMover', 'Fuel': 'WsfFuel',
+        'Comm': 'WsfComm', 'CommCount': 'int', 'CommEntry': 'WsfComm',
+        'Processor': 'WsfProcessor', 'ProcessorCount': 'int', 'ProcessorEntry': 'WsfProcessor',
+        'Sensor': 'WsfSensor', 'SensorCount': 'int', 'SensorEntry': 'WsfSensor',
+        'Weapon': 'WsfWeapon', 'WeaponCount': 'int', 'WeaponEntry': 'WsfWeapon',
+        'MasterTrackList': 'WsfLocalTrackList', 'CurrentTargetTrack': 'WsfTrack',
+        'SetCurrentTarget': 'WsfTrackId', 'HasCurrentTarget': 'bool',
+        'AuxDataBool': 'bool', 'AuxDataInt': 'int', 'AuxDataDouble': 'double',
+        'AuxDataString': 'string', 'AuxDataExists': 'bool',
+        'CategoryMemberOf': 'bool',
+        'SlantRangeTo': 'double', 'GroundRangeTo': 'double',
+        'RelativeBearingTo': 'double', 'TrueBearingTo': 'double', 'ClosingSpeedOf': 'double',
+        'GoToLocation': 'bool', 'GoToAltitude': 'bool', 'GoToSpeed': 'bool',
+        'TurnToHeading': 'bool', 'TurnToRelativeHeading': 'bool', 'FollowRoute': 'bool'
+      },
+      'WsfWeapon': {
+        'IsValid': 'bool', 'Fire': 'bool', 'QuantityRemaining': 'int',
+        'Platform': 'WsfPlatform', 'AuxDataDouble': 'double',
+        'AuxDataString': 'string'
+      },
+      'WsfTrack': {
+        'IsValid': 'bool', 'Target': 'WsfPlatform', 'TargetName': 'string',
+        'TargetKilled': 'bool', 'Quality': 'double', 'Speed': 'double',
+        'CurrentLocation': 'WsfGeoPoint', 'LocationAtTime': 'WsfGeoPoint',
+        'AirDomain': 'bool', 'SurfaceDomain': 'bool', 'TrackId': 'WsfTrackId'
+      },
+      'WsfGeoPoint': {
+        'Altitude': 'double', 'IsNull': 'bool', 'SlantRangeTo': 'double'
+      },
+      'WsfSimulation': {
+        'PlatformCount': 'int', 'PlatformEntry': 'WsfPlatform',
+        'FindPlatform': 'WsfPlatform', 'CreatePlatform': 'WsfPlatform',
+        'AddPlatform': 'WsfPlatform'
+      },
+      'WsfString': {
+        'Length': 'int', 'Contains': 'bool', 'StartsWith': 'bool', 'EndsWith': 'bool'
+      }
+    };
+
+    const methods = typeMethodReturnTypes[type];
+    if (methods && methods[methodName]) {
+      return methods[methodName];
+    }
+    return null;
+  }
+
+  private getMembersForType(type: string): { name: string; kind: vscode.CompletionItemKind; detail: string }[] {
+    const typeMembers: Record<string, { name: string; kind: vscode.CompletionItemKind; detail: string }[]> = {
+      'WsfPlatform': [
+        { name: 'Name', kind: vscode.CompletionItemKind.Method, detail: 'string' },
+        { name: 'Side', kind: vscode.CompletionItemKind.Method, detail: 'string' },
+        { name: 'Type', kind: vscode.CompletionItemKind.Method, detail: 'string' },
+        { name: 'Index', kind: vscode.CompletionItemKind.Method, detail: 'int' },
+        { name: 'IsValid', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'IsNull', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'Location', kind: vscode.CompletionItemKind.Method, detail: 'WsfGeoPoint' },
+        { name: 'Altitude', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'Speed', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'GroundSpeed', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'Heading', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'SetSide', kind: vscode.CompletionItemKind.Method, detail: 'void' },
+        { name: 'SetIcon', kind: vscode.CompletionItemKind.Method, detail: 'void' },
+        { name: 'Icon', kind: vscode.CompletionItemKind.Method, detail: 'string' },
+        { name: 'SetLocation', kind: vscode.CompletionItemKind.Method, detail: 'void' },
+        { name: 'GoToLocation', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'GoToAltitude', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'GoToSpeed', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'TurnToHeading', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'TurnToRelativeHeading', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'FollowRoute', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'SlantRangeTo', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'GroundRangeTo', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'RelativeBearingTo', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'TrueBearingTo', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'ClosingSpeedOf', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'Commander', kind: vscode.CompletionItemKind.Method, detail: 'WsfPlatform' },
+        { name: 'SetCommander', kind: vscode.CompletionItemKind.Method, detail: 'void' },
+        { name: 'CommanderName', kind: vscode.CompletionItemKind.Method, detail: 'string' },
+        { name: 'Peers', kind: vscode.CompletionItemKind.Method, detail: 'WsfPlatformList' },
+        { name: 'Subordinates', kind: vscode.CompletionItemKind.Method, detail: 'WsfPlatformList' },
+        { name: 'Mover', kind: vscode.CompletionItemKind.Method, detail: 'WsfMover' },
+        { name: 'Fuel', kind: vscode.CompletionItemKind.Method, detail: 'WsfFuel' },
+        { name: 'Comm', kind: vscode.CompletionItemKind.Method, detail: 'WsfComm' },
+        { name: 'CommCount', kind: vscode.CompletionItemKind.Method, detail: 'int' },
+        { name: 'CommEntry', kind: vscode.CompletionItemKind.Method, detail: 'WsfComm' },
+        { name: 'Processor', kind: vscode.CompletionItemKind.Method, detail: 'WsfProcessor' },
+        { name: 'ProcessorCount', kind: vscode.CompletionItemKind.Method, detail: 'int' },
+        { name: 'ProcessorEntry', kind: vscode.CompletionItemKind.Method, detail: 'WsfProcessor' },
+        { name: 'Sensor', kind: vscode.CompletionItemKind.Method, detail: 'WsfSensor' },
+        { name: 'SensorCount', kind: vscode.CompletionItemKind.Method, detail: 'int' },
+        { name: 'SensorEntry', kind: vscode.CompletionItemKind.Method, detail: 'WsfSensor' },
+        { name: 'Weapon', kind: vscode.CompletionItemKind.Method, detail: 'WsfWeapon' },
+        { name: 'WeaponCount', kind: vscode.CompletionItemKind.Method, detail: 'int' },
+        { name: 'WeaponEntry', kind: vscode.CompletionItemKind.Method, detail: 'WsfWeapon' },
+        { name: 'MasterTrackList', kind: vscode.CompletionItemKind.Method, detail: 'WsfLocalTrackList' },
+        { name: 'CurrentTargetTrack', kind: vscode.CompletionItemKind.Method, detail: 'WsfTrack' },
+        { name: 'SetCurrentTarget', kind: vscode.CompletionItemKind.Method, detail: 'WsfTrackId' },
+        { name: 'ClearCurrentTarget', kind: vscode.CompletionItemKind.Method, detail: 'void' },
+        { name: 'HasCurrentTarget', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'AuxDataBool', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'AuxDataInt', kind: vscode.CompletionItemKind.Method, detail: 'int' },
+        { name: 'AuxDataDouble', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'AuxDataString', kind: vscode.CompletionItemKind.Method, detail: 'string' },
+        { name: 'AuxDataExists', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'SetAuxData', kind: vscode.CompletionItemKind.Method, detail: 'void' },
+        { name: 'Comment', kind: vscode.CompletionItemKind.Method, detail: 'void' },
+        { name: 'ProcessInput', kind: vscode.CompletionItemKind.Method, detail: 'void' },
+        { name: 'CategoryMemberOf', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'AddCategory', kind: vscode.CompletionItemKind.Method, detail: 'void' },
+        { name: 'DeletePlatform', kind: vscode.CompletionItemKind.Method, detail: 'void' },
+        { name: 'Detonate', kind: vscode.CompletionItemKind.Method, detail: 'void' },
+        { name: 'CreationTime', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'TimeSinceCreation', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'IsExternallyControlled', kind: vscode.CompletionItemKind.Method, detail: 'bool' }
+      ],
+      'WsfWeapon': [
+        { name: 'IsValid', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'Fire', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'QuantityRemaining', kind: vscode.CompletionItemKind.Method, detail: 'int' },
+        { name: 'SetQuantityRemaining', kind: vscode.CompletionItemKind.Method, detail: 'void' },
+        { name: 'Platform', kind: vscode.CompletionItemKind.Method, detail: 'WsfPlatform' },
+        { name: 'AuxDataDouble', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'AuxDataString', kind: vscode.CompletionItemKind.Method, detail: 'string' },
+        { name: 'SetAuxData', kind: vscode.CompletionItemKind.Method, detail: 'void' }
+      ],
+      'WsfTrack': [
+        { name: 'IsValid', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'Target', kind: vscode.CompletionItemKind.Method, detail: 'WsfPlatform' },
+        { name: 'TargetName', kind: vscode.CompletionItemKind.Method, detail: 'string' },
+        { name: 'TargetKilled', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'Quality', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'Speed', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'CurrentLocation', kind: vscode.CompletionItemKind.Method, detail: 'WsfGeoPoint' },
+        { name: 'LocationAtTime', kind: vscode.CompletionItemKind.Method, detail: 'WsfGeoPoint' },
+        { name: 'AirDomain', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'SurfaceDomain', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'TrackId', kind: vscode.CompletionItemKind.Method, detail: 'WsfTrackId' }
+      ],
+      'WsfGeoPoint': [
+        { name: 'Altitude', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'SetAltitudeAGL', kind: vscode.CompletionItemKind.Method, detail: 'void' },
+        { name: 'IsNull', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'SlantRangeTo', kind: vscode.CompletionItemKind.Method, detail: 'double' }
+      ],
+      'WsfSimulation': [
+        { name: 'PlatformCount', kind: vscode.CompletionItemKind.Method, detail: 'int' },
+        { name: 'PlatformEntry', kind: vscode.CompletionItemKind.Method, detail: 'WsfPlatform' },
+        { name: 'FindPlatform', kind: vscode.CompletionItemKind.Method, detail: 'WsfPlatform' },
+        { name: 'CreatePlatform', kind: vscode.CompletionItemKind.Method, detail: 'WsfPlatform' },
+        { name: 'AddPlatform', kind: vscode.CompletionItemKind.Method, detail: 'WsfPlatform' }
+      ],
+      'WsfString': [
+        { name: 'Length', kind: vscode.CompletionItemKind.Method, detail: 'int' },
+        { name: 'Contains', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'StartsWith', kind: vscode.CompletionItemKind.Method, detail: 'bool' },
+        { name: 'EndsWith', kind: vscode.CompletionItemKind.Method, detail: 'bool' }
+      ],
+      'WsfMath': [
+        { name: 'Fabs', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'Sqrt', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'Sin', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'Cos', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'Min', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'Max', kind: vscode.CompletionItemKind.Method, detail: 'double' }
+      ],
+      'WsfRandom': [
+        { name: 'Uniform', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'Gaussian', kind: vscode.CompletionItemKind.Method, detail: 'double' },
+        { name: 'Integer', kind: vscode.CompletionItemKind.Method, detail: 'int' }
+      ]
+    };
+
+    return typeMembers[type] || [
+      { name: 'Size', kind: vscode.CompletionItemKind.Method, detail: 'int' },
+      { name: 'PushBack', kind: vscode.CompletionItemKind.Method, detail: 'void' },
+      { name: 'Get', kind: vscode.CompletionItemKind.Method, detail: 'T' },
+      { name: 'Empty', kind: vscode.CompletionItemKind.Method, detail: 'bool' }
+    ];
   }
 
   private getMembersForVariable(varName: string): { name: string; kind: vscode.CompletionItemKind; detail: string }[] {
@@ -450,11 +732,22 @@ export class AfsimCompletionProvider implements vscode.CompletionItemProvider {
     parsed: import('./afsimParser').ParsedDocument,
     position: vscode.Position
   ): void {
-    // Find the enclosing config block
+    // Find the enclosing script block scope
     const scope = this.parser.getScopeAtPosition(position, parsed.uri);
     if (!scope) return;
 
-    // Walk up to find the enclosing config block
+    // Add local variables from the current script block (including function parameters)
+    for (const v of parsed.variables) {
+      if (v.location.range.start.line >= scope.startLine &&
+        v.location.range.start.line <= position.line &&
+        !items.some(i => i.label === v.name)) {
+        const item = new vscode.CompletionItem(v.name, vscode.CompletionItemKind.Variable);
+        item.detail = v.type;
+        items.push(item);
+      }
+    }
+
+    // Walk up to find the enclosing config block for script_variables
     let configScope = scope.parentScope;
     while (configScope && configScope.isScript) {
       configScope = configScope.parentScope;
@@ -469,23 +762,13 @@ export class AfsimCompletionProvider implements vscode.CompletionItemProvider {
         (block.endLine === -1 || block.endLine <= (configScope.endLine === -1 ? Infinity : configScope.endLine))) {
         for (const v of parsed.variables) {
           if (v.location.range.start.line >= block.startLine &&
-            v.location.range.start.line <= (block.endLine === -1 ? Infinity : block.endLine)) {
+            v.location.range.start.line <= (block.endLine === -1 ? Infinity : block.endLine) &&
+            !items.some(i => i.label === v.name)) {
             const item = new vscode.CompletionItem(v.name, vscode.CompletionItemKind.Variable);
             item.detail = `${v.type}${v.isExtern ? ' (extern)' : ''}`;
             items.push(item);
           }
         }
-      }
-    }
-
-    // Also add local variables from the current script block
-    for (const v of parsed.variables) {
-      if (v.location.range.start.line >= scope.startLine &&
-        v.location.range.start.line <= position.line &&
-        !items.some(i => i.label === v.name)) {
-        const item = new vscode.CompletionItem(v.name, vscode.CompletionItemKind.Variable);
-        item.detail = v.type;
-        items.push(item);
       }
     }
   }
